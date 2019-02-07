@@ -1,0 +1,7 @@
+{
+  /*
+    - babel preset env for compiling Javascript ES6 code down to ES5
+    - babel preset react for compiling JSX and other stuff down to Javascript
+  */
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
