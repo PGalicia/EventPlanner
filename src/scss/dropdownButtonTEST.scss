@@ -1,0 +1,42 @@
+@mixin rectangle($height, $width, $borderRadius) {
+  height: $height;
+  width: $width;
+  border-radius: $borderRadius;
+}
+
+@mixin circle($radius) {
+  @include rectangle($radius, $radius, 50%);
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.container {
+  @include circle(250px);
+  background-color: skyblue;
+  position: relative;
+  top: 0;
+  transition: top 0.5s, transform 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    top: 25px;
+  }
+
+  .arrow-down {
+    position: absolute;
+    @include rectangle(10%, 40%, 50px);
+    top: 50%;
+    left: 50%;
+    background-color: black;
+
+    &#left {
+      transform: translate(-77%, -50%) rotate(45deg);
+    }
+
+    &#right {
+      transform: translate(-23%, -50%) rotate(-45deg);
+    }
+  }
+}
