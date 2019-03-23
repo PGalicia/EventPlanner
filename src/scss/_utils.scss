@@ -1,0 +1,17 @@
+$blue: #3A8BC2;
+$lightBlue: #4E98CA;
+$grey: #A6A6A6;
+$backgroundColor: whitesmoke;
+$fontMont: 'Montserrat', sans-serif;
+$fontKarla: 'Karla', sans-serif;
+
+%container-size {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@mixin centerContent($x, $y) {
+    top: 50%;
+    left: 50%;
+    transform: translate($x, $y);
+}

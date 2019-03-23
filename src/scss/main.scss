@@ -1,5 +1,7 @@
+@import 'utils';
+
 .main {
     width: 100vw;
-    height: 500px;
-    background-color: paleturquoise;
+    background-color: $backgroundColor;
+    @extend %container-size;
 }

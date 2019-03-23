@@ -1,10 +1,10 @@
-$color: skyblue;
+@import 'utils'; 
 
 body {
-  margin: 0 auto;
+  @extend %container-size;
 }
 
 h1 {
-  color: $color;
+  color: $blue;
   margin: 0 auto;
 }

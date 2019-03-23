@@ -1,21 +1,17 @@
-$blue: #3A8BC2;
-
-%container-size {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+@import 'utils'; 
 
 .header_container {
     width: 100vw;
     height: 100px;
-    background-color: whitesmoke;
-    /* I should make the two below lines global */
+    background-color: $backgroundColor;
     @extend %container-size;
+    position: relative;
 
     .logo {
         font-family: 'Montserrat', sans-serif;
         font-size: 64px;
         letter-spacing: 5px;
+        padding: 10px;
 
         a {
             text-decoration: none;
