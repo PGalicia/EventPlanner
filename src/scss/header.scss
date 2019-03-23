@@ -1,5 +1,26 @@
-.navigation_container {
+$blue: #3A8BC2;
+
+%container-size {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header_container {
     width: 100vw;
     height: 100px;
-    background-color: palegreen;
+    background-color: whitesmoke;
+    /* I should make the two below lines global */
+    @extend %container-size;
+
+    .logo {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 64px;
+        letter-spacing: 5px;
+
+        a {
+            text-decoration: none;
+            color: $blue;
+        }
+
+    }
 }
