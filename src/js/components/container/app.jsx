@@ -7,6 +7,10 @@ import "../../../scss/app.scss";
 import { connect } from "react-redux";
 import { changeGreeting } from "../../actions/index.js";
 
+// Components
+import Header from "./header.jsx";
+import Main from "./../presentational/main.jsx";
+
 /*
   mapStateToProps, mapDispatchToProps
 */
@@ -37,8 +41,15 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1>{this.props.message}</h1>
-        <button onClick={this.changeGreeting}>Click Me!</button>
+        {/* <h1>{this.props.message}</h1>
+        <button onClick={this.changeGreeting}>Click Me!</button> */}
+        {/* Navigation Component */}
+        <Header />
+        {/* Main Component */}
+        <Main />
+
+        {/* Footer Component */}
+
       </React.Fragment>
     );
   }
