@@ -2,11 +2,14 @@
 
 .event-card-container {
     width: 90%;
-    height: 200px;
+    min-width: 750px;
+    height: 215px;
     background-color: $blue;
     border-radius: 10px;
     margin: 0 auto;
     position: relative;
+    color: white;
+    font-family: $fontKarla;
     
     > * {
         display: inline-block;
@@ -21,8 +24,6 @@
         border-radius: 10px 0 0 10px;
 
         > * {
-            color: white;
-            font-family: $fontKarla;
             margin: 0;
             position: absolute;
             letter-spacing: 5px;
@@ -45,6 +46,7 @@
             text-align: center;
             font-weight: 100;
             letter-spacing: 0;
+            font-family: $fontMont;
         }
     }
 
@@ -54,6 +56,72 @@
         width: calc(100% - 200px);
         border-radius: 0 10px 10px 0;
 
+        > * {
+            position: absolute;
+            margin: 0 auto;
+        }
+
+        .event-name {
+            font-size: 64px;
+            top: 15px;
+            left: 25px;
+        }
+
+        .event-location,
+        .event-time,
+        .see-more-button {
+            font-size: 20px;
+            width: 200px;
+            font-weight: 100;
+            left: 30px;
+            width: 500px;
+            font-family: $fontMont;
+        }
+
+        .event-location {
+            top: 100px;
+        }
+
+        .event-time {
+            top: 135px;
+        }
+
+        .see-more-button {
+            top: 170px;
+        }
+
+        .logo {
+            padding-right: 5px;
+        }
+
+        .event-card-action-button-container {
+            position: absolute;
+            right: 0;
+            top: 15px;
+
+            > * {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: $lightBlue;
+                left: -65px;
+                border-style: none;
+                cursor: pointer;
+            }
+
+            #expand-button {
+                top: 0;
+            }
+
+            #edit-button {
+                top: 65px
+            }
+
+            #delete-button {
+                top: 130px;
+            }
+        }
     }
 
 }
