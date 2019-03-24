@@ -34,7 +34,6 @@ class Home extends Component {
   render() {
     return (
       <div>
-          <h1>Home Component</h1>
           {/* Add Button */}
           <div><Link to={'/create_new_event'}>Add</Link></div>
           {/* Current Event */}

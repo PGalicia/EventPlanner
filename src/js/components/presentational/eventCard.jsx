@@ -71,17 +71,22 @@ class EventCard extends Component {
                     <div className="event-card-action-button-container">
                         <button 
                             onClick={this.toggleEventCardExpansion} 
-                            className={!this.state.isEventCardContainerExpanded ? 
-                                "move-down-button":
-                                "move-down-button expand-button"}>
+                            className={this.state.isEventCardContainerExpanded ? 
+                                "expand-button":
+                                "move-expand-button"}
+                        >
                                 m
+                        </button>
+                        <button 
+                            className={this.state.isEventCardContainerExpanded ? 
+                                "edit-button":
+                                "move-edit-button"}
+                        >
+                            e
                         </button>
                         {
                             this.state.isEventCardContainerExpanded &&
-                            <>   
-                                <button className="edit-button">e</button>
-                                <button className="delete-button">d</button>
-                            </>
+                            <button className="delete-button">d</button>
                         }  
                     </div>
                 </div>

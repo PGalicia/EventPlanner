@@ -128,22 +128,25 @@
                 height: 50px;
                 border-radius: 50%;
                 background-color: $lightBlue;
-                left: -65px;
+                // left: -65px;
                 border-style: none;
                 cursor: pointer;
-                transition: top 0.2s;
+                transition: all 0.2s;
             }
 
             .expand-button {        
-                top: 0;
+                top: 0px;
+                left: -65px;
             }
 
             .edit-button {
-                top: 65px
+                top: 65px;
+                left: -65px;
             }
 
             .delete-button {
                 top: 130px;
+                left: -65px;
             }
         }
     }
@@ -154,6 +157,12 @@
     height: 105px;
 }
 
-.move-down-button {
+.move-expand-button {
     top: 10px;
+    left: -65px;
+}
+
+.move-edit-button {
+    top: 10px;
+    left: -125px;
 }
