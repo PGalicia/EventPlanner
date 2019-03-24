@@ -39,7 +39,9 @@ class Home extends Component {
           <div><Link to={'/create_new_event'}>Add</Link></div>
           {/* Current Event */}
           <h3 className="event-titles">Current Event</h3>
-          <EventCard />
+          <EventCard 
+            isEventCardContainerExpanded={true}
+          />
           {/* Future Event */}
           <h3 className="event-titles">Future Event</h3>
           {/* Past Event */}

@@ -11,33 +11,78 @@ const mapDispatchToProps = dispatch => {
 }
 
 class EventCard extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isEventCardContainerExpanded: this.props.isEventCardContainerExpanded
+        }
+
+        this.toggleEventCardExpansion = this.toggleEventCardExpansion.bind(this);
+    }
+
+    componentDidMount() {
+        console.log("toggle: ", this.state.isEventCardContainerExpanded);
+    }
+
+    componentDidUpdate() {
+        console.log("toggle: ", this.state.isEventCardContainerExpanded);
+    } 
+
+    toggleEventCardExpansion() {
+        this.setState({ isEventCardContainerExpanded: !this.state.isEventCardContainerExpanded });
     }
     
     render() {
         return (
-            <div className="event-card-container">
-                <div className="date-container">
-                    <h3 className="date">10</h3>
-                    <h3 className="month">FEB</h3>
-                    <h4 className="day-year">Wednesday 2019</h4>
-                </div>
+            <div className={this.state.isEventCardContainerExpanded ? 
+                                "event-card-container" : 
+                                "event-card-container shrink"}>
+                {
+                    this.state.isEventCardContainerExpanded &&
+                    <div className="date-container">
+                        <h3 className="date">10</h3>
+                        <h3 className="month">FEB</h3>
+                        <h4 className="day-year">Wednesday 2019</h4>
+                    </div>
+                }
+                {
+                    !this.state.isEventCardContainerExpanded &&
+                    <div className="date-container-small">
+                        <h3 className="date-small">FEB 10 <span>2019</span></h3>
+                    </div>
+                }
                 <div className="event-info-container">
                     <h2 className="event-name">Game Night</h2>
-                    <h4 className="event-location">
-                        <span className="logo" id="location">logo</span>
-                        123 North Avenue Los Angeles, CA 90041
-                    </h4>
-                    <h4 className="event-time">
-                        <span className="logo" id="time">logo</span>
-                        10:00 AM
-                    </h4>
-                    <h6 className="see-more-button">See more...</h6>
+                    {
+                        this.state.isEventCardContainerExpanded && 
+                        <>
+                            <h4 className="event-location">
+                                <span className="logo" id="location">logo</span>
+                                123 North Avenue Los Angeles, CA 90041
+                            </h4>
+                            <h4 className="event-time">
+                                <span className="logo" id="time">logo</span>
+                                10:00 AM
+                            </h4>
+                            <h6 className="see-more-button">See more...</h6>
+                        </>
+                    }
                     <div className="event-card-action-button-container">
-                        <button id="expand-button">m</button>
-                        <button id="edit-button">e</button>
-                        <button id="delete-button">d</button>
+                        <button 
+                            onClick={this.toggleEventCardExpansion} 
+                            className={!this.state.isEventCardContainerExpanded ? 
+                                "move-down-button":
+                                "move-down-button expand-button"}>
+                                m
+                        </button>
+                        {
+                            this.state.isEventCardContainerExpanded &&
+                            <>   
+                                <button className="edit-button">e</button>
+                                <button className="delete-button">d</button>
+                            </>
+                        }  
                     </div>
                 </div>
             </div>

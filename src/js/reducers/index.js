@@ -1,5 +1,6 @@
 import {
-    CHANGE_GREETING
+    CHANGE_GREETING,
+    TOGGLE_EVENT_CARD_CONTAINER
 } from "../constants/action-types.js";
 
 const initialState = {

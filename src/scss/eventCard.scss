@@ -10,6 +10,7 @@
     position: relative;
     color: white;
     font-family: $fontKarla;
+    transition: height 0.2s;
     
     > * {
         display: inline-block;
@@ -47,6 +48,28 @@
             font-weight: 100;
             letter-spacing: 0;
             font-family: $fontMont;
+        }
+    }
+
+    .date-container-small {
+        position: relative;
+        height: 100%;
+        width: 200px;
+        background-color: $lightBlue;
+        border-radius: 10px 0 0 10px;
+
+        .date-small{
+            font-size: 28px;
+            margin: 0;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            @include centerContent(-50%, -50%);
+
+            span {
+                font-family: $fontMont;
+                font-weight: 100;
+            }
         }
     }
 
@@ -108,20 +131,29 @@
                 left: -65px;
                 border-style: none;
                 cursor: pointer;
+                transition: top 0.2s;
             }
 
-            #expand-button {
+            .expand-button {        
                 top: 0;
             }
 
-            #edit-button {
+            .edit-button {
                 top: 65px
             }
 
-            #delete-button {
+            .delete-button {
                 top: 130px;
             }
         }
     }
 
+}
+
+.shrink {
+    height: 105px;
+}
+
+.move-down-button {
+    top: 10px;
 }
