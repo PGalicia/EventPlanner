@@ -1,6 +1,6 @@
 import {
     CHANGE_GREETING,
-    TOGGLE_EVENT_CARD_CONTAINER
+    FETCH_ALL_EVENT
 } from "./../constants/action-types.js";
 
 export const changeGreeting = message => ({
@@ -8,7 +8,7 @@ export const changeGreeting = message => ({
     payload: message
 });
 
-export const toggleEventCardContainer = bool => ({
-    type: TOGGLE_EVENT_CARD_CONTAINER,
-    payload: bool
+export const fetchAllEvents = events => ({
+    type: FETCH_ALL_EVENT,
+    payload: events
 });
