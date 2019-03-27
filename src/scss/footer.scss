@@ -1,0 +1,19 @@
+@import 'utils'; 
+
+.footer-container {
+    width: 100vw;
+    height: 50px;
+    background-color: $backgroundColor;
+    @extend %container-size;
+    font-family: $fontKarla;
+    font-size: 18px;
+    color: $grey;
+    position: relative;
+    
+    h6 {
+        position: absolute;
+        margin: 0 auto;
+        text-align: center;
+        @include centerContent(-50%, -50%);
+    }
+}

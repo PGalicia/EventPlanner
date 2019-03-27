@@ -24,7 +24,7 @@ class Navigation extends Component {
     
     render(){
         return (
-            <div className="header_container">
+            <div className="header-container">
                 <h1 className="logo"><Link to={'/'}>Event Planner</Link></h1>
             </div>
         );

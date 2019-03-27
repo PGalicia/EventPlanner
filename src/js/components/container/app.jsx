@@ -10,6 +10,7 @@ import { changeGreeting } from "../../actions/index.js";
 // Components
 import Header from "./header.jsx";
 import Main from "./../presentational/main.jsx";
+import Footer from "./../presentational/footer.jsx";
 
 /*
   mapStateToProps, mapDispatchToProps
@@ -47,8 +48,8 @@ class App extends Component {
         <Header />
         {/* Main Component */}
         <Main />
-
         {/* Footer Component */}
+        <Footer />
 
       </React.Fragment>
     );

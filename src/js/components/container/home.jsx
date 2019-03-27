@@ -55,7 +55,6 @@ class Home extends Component {
     .then(events => {
       // Sort the event based on their date
       const sortedEvents = sortDate(events);
-      console.log("Sorted Events:", sortedEvents);
       this.props.fetchAllEvents(sortedEvents);
 
       // Find the 'current' event
@@ -108,15 +107,11 @@ class Home extends Component {
         }
 
       }
-      // console.log("Current Event:", this.state.currentEvent);
-      console.log("Future Events:", this.state.futureEvents);
-      console.log("Past Events:", this.state.pastEvents);
     })
 
   }
 
   render() {
-    console.log("Future Events Length:", this.state.futureEvents.length);
     return (
       <div>
           {/* Add Button */}

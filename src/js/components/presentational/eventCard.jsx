@@ -28,7 +28,6 @@ class EventCard extends Component {
     }
 
     componentDidMount() {
-        console.log("event:", this.state.event);
     }
 
     toggleEventCardExpansion() {
@@ -36,7 +35,6 @@ class EventCard extends Component {
     }
     
     render() {
-        console.log("Current Event Card:", this.props.currentEvent);
         return (
             <div className={this.state.isEventCardContainerExpanded ? 
                                 "event-card-container" : 
