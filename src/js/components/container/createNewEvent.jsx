@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import "./../../../scss/createNewEvent.scss";
+
 const mapStateToProps = state => {
     return state;
 };
@@ -20,8 +22,17 @@ class CreateNewEvent extends Component {
     render() {
         return (
             <>
-                <h1>Create New Event Component</h1>
-                <Link to={'/'}>Back to home</Link>
+                <div className="create-event-header-container">
+                    
+                    <div className="delete-button">
+                        <h2><Link to={'/'}>Cancel</Link></h2>
+                    </div>
+                    <div className="submit-button">
+                        <h2><Link to={'/'}>Submit</Link></h2>
+                    </div>
+                </div>
+                    <h2 className="title-name">Create Event </h2>
+                
                 
             </>
         )

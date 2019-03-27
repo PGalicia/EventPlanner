@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 // Components
 
 import EventCard from "./../presentational/eventCard.jsx";
+import Header from "../presentational/header.jsx";
 
 /*
   mapStateToProps, mapDispatchToProps
@@ -113,9 +114,14 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <>
           {/* Add Button */}
-          <div><Link to={'/create_new_event'}>Add</Link></div>
+          {/* Navigation Component */}
+          <Header />
+          {/* <div className="add-button">
+            <h2><Link to={'/create_new_event'}>Add</Link></h2>
+          </div> */}
+          {/* <div className="add-button"><Link to={'/create_new_event'}>Add</Link></div> */}
           {/* Current Event */}
           {this.state.currentEvent &&
             <>
@@ -163,7 +169,7 @@ class Home extends Component {
           <h6><Link to={'/edit/1'}>Edit Event 1</Link></h6>
           <h3><Link to={'/events/2'}>Event 2</Link></h3>
           <h6><Link to={'/edit/2'}>Edit Event 2</Link></h6> */}
-      </div>
+      </>
     );
   }
 }

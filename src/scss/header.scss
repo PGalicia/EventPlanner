@@ -1,22 +1,37 @@
 @import 'utils'; 
 
-.header-container {
+.home-header-container {
     width: 100vw;
     height: 100px;
-    background-color: $backgroundColor;
     @extend %container-size;
     position: relative;
 
     .logo {
-        font-family: 'Montserrat', sans-serif;
+        font-family: $fontMont;
         font-size: 64px;
         letter-spacing: 5px;
-        padding: 10px;
+        padding: 10px 10px 10px 10px;
 
         a {
             text-decoration: none;
             color: $blue;
         }
 
+    }
+
+    .add-button {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: $blue;
+        right: 25px;
+        top: 0;
+    
+        h2 {
+            position: absolute;
+            margin: 0 auto;
+            @include centerContent(-50%, -50%);
+        }
     }
 }

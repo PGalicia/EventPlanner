@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { changeGreeting } from "../../actions/index.js";
 
 // Components
-import Header from "./header.jsx";
+import Header from "../presentational/header.jsx";
 import Main from "./../presentational/main.jsx";
 import Footer from "./../presentational/footer.jsx";
 
@@ -44,8 +44,6 @@ class App extends Component {
       <React.Fragment>
         {/* <h1>{this.props.message}</h1>
         <button onClick={this.changeGreeting}>Click Me!</button> */}
-        {/* Navigation Component */}
-        <Header />
         {/* Main Component */}
         <Main />
         {/* Footer Component */}

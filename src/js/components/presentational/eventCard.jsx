@@ -5,6 +5,7 @@ import {
     convertNumToDays,
     convertNumToMonths
 } from "./../../utils/figureOutDate.js";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = state => {
     return state;
@@ -66,7 +67,7 @@ class EventCard extends Component {
                                 <span className="logo" id="time">logo</span>
                                 {this.state.eventDateTime.toLocaleTimeString('en-US', { timeZone: 'UTC', hour12: true, hour: '2-digit', minute:'2-digit' })}
                             </h4>
-                            <h6 className="see-more-button">See more...</h6>
+                            <h6 className="see-more-button"><Link to={`/events/${this.state.event.rowid}`}>See More...</Link></h6>
                         </>
                     }
                     <div className="event-card-action-button-container">

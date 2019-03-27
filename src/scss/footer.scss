@@ -5,9 +5,6 @@
     height: 50px;
     background-color: $backgroundColor;
     @extend %container-size;
-    font-family: $fontKarla;
-    font-size: 18px;
-    color: $grey;
     position: relative;
     
     h6 {
@@ -15,5 +12,9 @@
         margin: 0 auto;
         text-align: center;
         @include centerContent(-50%, -50%);
+        font-family: $fontMont;
+        font-size: 18px;
+        color: $grey;
+        font-weight: 100;
     }
 }
