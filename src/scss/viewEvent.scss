@@ -1,13 +1,14 @@
 @import 'utils';
 
-.create-event-header-container {
+.view-event-header-container {
     width: 100vw;
     height: 100px;
     @extend %container-size;
     position: relative;
 
-    .submit-button,
-    .cancel-button {
+    .edit-button,
+    .back-button,
+    .delete-button {
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -22,25 +23,22 @@
     }
 
 
-    .submit-button {
+    .delete-button {
         position: absolute;
         right: 25px;
         top: 0;
     }
     
-    .cancel-button {
+    .edit-button {
+        position: absolute;
+        right: 125px;
+        top: 0;
+    }
+    
+    .back-button {
         position: relative;
         float: left;
         left: 25px;
         top: 0;
     }
-}
-
-.title-name {
-    font-family: $fontKarla;
-    font-size: 64px;
-    color: $blue;
-    letter-spacing: 5px;
-    padding: 10px 10px 10px 25px;
-    margin: 0 auto;
 }
