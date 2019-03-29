@@ -1,5 +1,13 @@
-import React from "react";
-import "./../../../scss/footer.scss";
+/*
+    Imports
+*/
+
+import React from "react"; // React
+import "./../../../scss/footer.scss"; // SCSS
+
+/*
+    Footer Component
+*/
 const Footer = () => {
     return (
         <div className="footer-container">

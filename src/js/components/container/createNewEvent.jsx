@@ -1,10 +1,16 @@
-import React, { Component } from "react";
+/*
+    Imports
+*/
 
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { Component } from "react"; // React
+import { connect } from "react-redux"; // React-Router
+import { Link } from "react-router-dom"; // React-Router
+import "./../../../scss/createNewEvent.scss"; // SCSS
 
-import "./../../../scss/createNewEvent.scss";
-
+/*
+    mapStateToProps,
+    mapDispatchToProps
+*/
 const mapStateToProps = state => {
     return state;
 };
@@ -15,6 +21,10 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
+/*
+    CreateNewEvent Component
+*/
+
 class CreateNewEvent extends Component {
     constructor() {
         super();
@@ -23,10 +33,13 @@ class CreateNewEvent extends Component {
         return (
             <>
                 <div className="create-event-header-container">
-                    
-                    <div className="delete-button">
+
+                    {/* Delete Button */}
+                    <div className="cancel-button">
                         <h2><Link to={'/'}>Cancel</Link></h2>
                     </div>
+
+                    {/* Submit Button */}
                     <div className="submit-button">
                         <h2><Link to={'/'}>Submit</Link></h2>
                     </div>

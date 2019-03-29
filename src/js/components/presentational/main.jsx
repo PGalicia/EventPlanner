@@ -1,12 +1,18 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import "./../../../scss/main.scss";
+/*
+    Imports
+*/
 
-// Container Component
-import Home from "./../container/home.jsx";
-import CreateNewEvent from "./../container/createNewEvent.jsx";
-import ViewEvent from "./../container/viewEvent.jsx";
-import EditEvent from "./../container/editEvent.jsx";
+import React from "react"; // React
+import { Switch, Route } from "react-router-dom"; // React-Router
+import "./../../../scss/main.scss"; // SCSS
+import Home from "./../container/home.jsx"; // Component
+import CreateNewEvent from "./../container/createNewEvent.jsx"; // Component
+import ViewEvent from "./../container/viewEvent.jsx"; // Component
+import EditEvent from "./../container/editEvent.jsx"; // Component
+
+/*
+    Main Component
+*/
 
 const Main = () => (
   <main className="main">
@@ -15,10 +21,6 @@ const Main = () => (
       <Route path="/create_new_event" component={CreateNewEvent} />
       <Route path="/events/:eventId" component={ViewEvent} />
       <Route path="/edit/:eventId" component={EditEvent} />
-      {/* 03/22/19: CONTINUE WORKING ON ADDING ROUTES. SPECIFICALLY 'ASSIGN ITEM' ROUTES */}
-      {/* <Route path="/:eventId" component={ViewEvent}/> */}
-      {/* <Route exact path="/:eventId/edit" component={EditEvent}/> */}
-      {/* <Route component={NotFound} /> */}
     </Switch>
   </main>
 );

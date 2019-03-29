@@ -1,25 +1,15 @@
-import { 
-    DAYS,
-    MONTHS
-} from "./../constants/dateFormat.js";
+/*
+      getWholeDateString
 
-export function convertNumToDays(id)  {
-    for(let day of DAYS) {
-        if(day.id === id) {
-            return day.day
-        }
-    }
-    return "null";
-}
+      Description: Takes in the datetime and return
+        a formatted string date.
 
-export function convertNumToMonths(id)  {
-    for(let month of MONTHS) {
-        if(month.id === id) {
-            return month.month
-        }
-    }
-    return "null";
-}
+      Conditions:
+        - 'datetime' is a datetype instead of string
+*/
+
+import { convertNumToDays } from "./convertNumToDays";
+import { convertNumToMonths } from "./convertNumToMonths";
 
 export function getWholeDateString(datetime) {
     const day = convertNumToDays(datetime.getDay());

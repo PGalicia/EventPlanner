@@ -1,12 +1,19 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Route, Link } from "react-router-dom";
-import "./../../../scss/viewEvent.scss";
-import EditEvent from "./../container/editEvent.jsx";
-import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js";
-import {
-    getWholeDateString
-} from "./../../utils/figureOutDate.js";
+/*
+    Imports
+*/
+
+import React, { Component } from "react"; // React
+import { connect } from "react-redux"; // Redux
+import { Link } from "react-router-dom"; // React-Router
+import "./../../../scss/viewEvent.scss"; // SCSS
+import EditEvent from "./../container/editEvent.jsx"; // Component
+import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
+import { getWholeDateString } from "../../utils/getWholeDateString.js"; // Utility Functions
+
+/*
+  mapStateToProps,
+  mapDispatchToProps
+*/
 
 const mapStateToProps = state => {
     return {
@@ -19,6 +26,10 @@ const mapDispatchToProps = dispatch => {
 
     };
 }
+
+/*
+  ViewEvent Component
+*/
 
 class ViewEvent extends Component {
     constructor() {
@@ -34,7 +45,6 @@ class ViewEvent extends Component {
         fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
             .then(res => res.json())
             .then(event => {
-                console.log("Event", event);
                 this.setState({ event });
             
             });

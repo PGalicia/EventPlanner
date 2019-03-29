@@ -1,12 +1,17 @@
-import React, { Component } from "react";
-import "./../../../scss/header.scss";
+/*
+    Imports
+*/
 
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { Component } from "react"; // React
+import "./../../../scss/header.scss"; // SCSS
+import { connect } from "react-redux"; // Redux
+import { Link } from "react-router-dom"; // React-Router
 
 /*
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 */
+
 const mapStateToProps = state => {
     return state;
   };
@@ -16,6 +21,10 @@ const mapDispatchToProps = dispatch => {
         
     };
 };
+
+/*
+    Navigation Component
+*/
 
 class Navigation extends Component {
     constructor() {

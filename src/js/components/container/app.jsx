@@ -1,19 +1,16 @@
-import React, { Component } from "react";
+/*
+  Imports
+*/
 
-// .scss
-import "../../../scss/app.scss";
-
-// redux
-import { connect } from "react-redux";
-import { changeGreeting } from "../../actions/index.js";
-
-// Components
-import Header from "../presentational/header.jsx";
-import Main from "./../presentational/main.jsx";
-import Footer from "./../presentational/footer.jsx";
+import React, { Component } from "react"; // React
+import "../../../scss/app.scss"; // SCSS
+import { connect } from "react-redux"; // Redux
+import Main from "./../presentational/main.jsx"; // Component
+import Footer from "./../presentational/footer.jsx"; // Component
 
 /*
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 */
 const mapStateToProps = state => {
   return state;
@@ -21,34 +18,25 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeGreeting: message => dispatch(changeGreeting(message))
+    
   };
 };
 
 /*
-  main component
+  App Component
 */
 class App extends Component {
   constructor() {
     super();
-
-    this.changeGreeting = this.changeGreeting.bind(this);
-  }
-
-  changeGreeting() {
-    this.props.changeGreeting("Hi World!");
   }
 
   render() {
     return (
       <React.Fragment>
-        {/* <h1>{this.props.message}</h1>
-        <button onClick={this.changeGreeting}>Click Me!</button> */}
         {/* Main Component */}
         <Main />
         {/* Footer Component */}
         <Footer />
-
       </React.Fragment>
     );
   }

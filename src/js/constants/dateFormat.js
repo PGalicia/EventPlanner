@@ -1,3 +1,9 @@
+/*
+    Constants: dateFormat.js
+    Description: Constants are used to change returned number
+        value to its corresponding day or month value
+*/
+
 export const DAYS = [
     { id: 0, day: "Monday" },
     { id: 1, day: "Tuesday" },

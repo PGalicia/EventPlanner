@@ -1,17 +1,25 @@
-import {
-    CHANGE_GREETING,
-    FETCH_ALL_EVENT
-} from "../constants/action-types.js";
+/*
+    Imports
+*/
 
+import { FETCH_ALL_EVENT } from "../constants/action-types.js"; // Components
+
+/*
+    Initial State
+
+    Additional Notes:
+        - 'events' will contain the whole events object
+*/
 const initialState = {
-    message: "Hello World",
     events: null
 };
 
+
+/*
+    Root Reducer
+*/
 const rootReducer = (state = initialState, action) => {
     switch(action.type) {
-        case CHANGE_GREETING:
-            return { ...state, message: action.payload };
         case FETCH_ALL_EVENT:
             return { ...state, events: action.payload };
         default:

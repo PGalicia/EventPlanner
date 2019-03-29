@@ -2,7 +2,8 @@
 
 .home-header-container {
     width: 100vw;
-    height: 100px;
+    height: $headerHeight;
+    min-width: $minWidth;
     @extend %container-size;
     position: relative;
 
@@ -11,6 +12,7 @@
         font-size: 64px;
         letter-spacing: 5px;
         padding: 10px 10px 10px 10px;
+        margin: 0;
 
         a {
             text-decoration: none;
