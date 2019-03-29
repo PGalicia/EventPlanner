@@ -12,9 +12,9 @@
         - There will be no event that will have the same datetime
 */
 
-export function findCurrentEvent(events) {
+export function findCurrentEvent(events, baseDate = Date.now()) {
     // Today's Date
-    const todaysDate = new Date(Date.now());
+    const todaysDate = new Date(baseDate);
 
     // Compare the first value (Initial Test)
     let bestDateScore = new Date(events[0].datetime) - todaysDate;
@@ -46,7 +46,9 @@ export function findCurrentEvent(events) {
             bestDateScore = currentDateScore;
             currentEvent = events[i];
         } else {
-            return currentEvent
+            return currentEvent;
         }
     }
+
+    return currentEvent;
 }

@@ -24,7 +24,8 @@ export function findFutureAndPastEvents(currentEvent, events) {
     }
   
     // Find currentEvent id
-    const currentEventIndex = events.indexOf(currentEvent);
+    // const currentEventIndex = events.indexOf(currentEvent);
+    const currentEventIndex = events.findIndex(event => event.datetime === currentEvent.datetime);
   
     // If the currentEventIndex equals the last element of the event list,
     //    Set futureEvents to equal everything in the events besides the last one

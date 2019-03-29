@@ -16,5 +16,5 @@ export function convertNumToDays(dayNum)  {
 
     // If the 'dayNum' passed is invalid,
     //      Return Null
-    return "null";
+    return null;
 }

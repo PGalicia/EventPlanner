@@ -17,5 +17,5 @@ export function convertNumToMonths(monthNum)  {
 
     // If the 'monthNum' passed is invalid,
     //      Return Null
-    return "null";
+    return null;
 }
