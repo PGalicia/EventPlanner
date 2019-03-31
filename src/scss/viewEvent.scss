@@ -95,17 +95,22 @@
 
     }
 
-    .attendees-container,
     .items-container {
         position: relative;
-        display: grid;
-        grid-template-columns: repeat(3, auto);
+        display: flex;
+        flex-wrap: wrap;
+        // flex-grow: 1;
+        // flex: 1;
         width: 90%;
         margin: 0 auto;
     }
 
     .attendees-container {
-
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        width: 90%;
+        margin: 0 auto;
         padding-bottom: 25px;
     }
 

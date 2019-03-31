@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"; // React-Router
 import "./../../../scss/viewEvent.scss"; // SCSS
 import EditEvent from "./../container/editEvent.jsx"; // Component
 import NameDisplay from "./../presentational/nameDisplay.jsx" // Component
+import ItemDisplay from "./../presentational/itemDisplay.jsx"; // Component
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
 import { getWholeDateString } from "../../utils/getWholeDateString.js"; // Utility Functions
 import { formatEventTitle } from "./../../utils/formatEventTitle.js"; // Utility Function
@@ -37,6 +38,8 @@ class ViewEvent extends Component {
     constructor() {
         super();
 
+        this.divWidth = React.createRef();
+
         this.state = {
             event: null,
             attendees: [],
@@ -58,6 +61,7 @@ class ViewEvent extends Component {
 
                 // Find which items are present in the event
                 const assignedItems = event.assignedItems;
+                
                 this.setState({ assignedItems });
 
                 this.setState({ event });
@@ -119,7 +123,7 @@ class ViewEvent extends Component {
                                 return (
                                     <NameDisplay 
                                         key={attendee.rowid}
-                                        name={attendee.name}
+                                        name={formatEventTitle(attendee.name)}
                                         color="#000"
                                     />
                                 );
@@ -130,7 +134,11 @@ class ViewEvent extends Component {
                             <span className="logo">logo</span>
                                 Items:
                         </h6>
-                        <section className="items-container">
+                        <section 
+                            className="items-container"
+                            ref={this.divWidth}
+                            
+                        >
                             {(this.state.assignedItems.length > 0 && this.state.items.length > 0) &&
                                 <>
                                     {this.state.assignedItems.map(assignedItem => {
@@ -138,12 +146,11 @@ class ViewEvent extends Component {
                                             const targetItem = this.state.items.find(item => item.rowid === assignedItem.rowid);
                                             if(targetItem) {
                                                 return (
-                                                    <div 
+                                                    <ItemDisplay
                                                         key={assignedItem.rowid}
-                                                        className="item"
-                                                    >
-                                                        {targetItem.name}
-                                                    </div>
+                                                        name={formatEventTitle(targetItem.name)}
+                                                        count={Math.floor(Math.random() * Math.floor(3))}
+                                                    />
                                                 );
                                             }
                                         }

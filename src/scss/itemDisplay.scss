@@ -1,0 +1,37 @@
+@import 'utils';
+
+.item-container {
+    height: 45px;
+    border-radius: 5px;
+    position: relative;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    flex: auto;
+
+    > * {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .item-name {
+        @extend %body-font;
+        position: relative;
+        float: left;
+        padding: 0 10px;
+        
+    }
+
+    .block {
+        background-color: red;
+        position: relative;
+        width: 25px;
+        height: 100%;
+        float: right;
+    }
+
+    .block:first-of-type {
+        border-radius: 0 5px 5px 0;
+    }
+}
