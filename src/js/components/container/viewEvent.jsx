@@ -7,6 +7,7 @@ import { connect } from "react-redux"; // Redux
 import { Link } from "react-router-dom"; // React-Router
 import "./../../../scss/viewEvent.scss"; // SCSS
 import EditEvent from "./../container/editEvent.jsx"; // Component
+import NameDisplay from "./../presentational/nameDisplay.jsx" // Component
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
 import { getWholeDateString } from "../../utils/getWholeDateString.js"; // Utility Functions
 
@@ -36,7 +37,10 @@ class ViewEvent extends Component {
         super();
 
         this.state = {
-            event: null
+            event: null,
+            attendees: [],
+            assignedItems: [],
+            items: []
         }
     }
 
@@ -45,10 +49,23 @@ class ViewEvent extends Component {
         fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
             .then(res => res.json())
             .then(event => {
+                
+                // Find which attendees are going
+                const people = event.guests;
+                const attendees = people.filter(person => person.event_guest.isGoing);
+                this.setState({ attendees });
+
+                // Find which items are present in the event
+                const assignedItems = event.assignedItems;
+                this.setState({ assignedItems });
+
                 this.setState({ event });
-            
-            });
-            
+            })
+            .then(() => {
+                return fetch(`${REST_API_BASE_PATH}/items/`);
+            })
+            .then(res => res.json())
+            .then(items => this.setState({ items }))
     }
 
     render() {
@@ -71,14 +88,70 @@ class ViewEvent extends Component {
                 </div>
 
                 {this.state.event &&
-                    <>
+                    <div className="view-event-body-container container">
                         <h2 className="title-name">{this.state.event.name}</h2>
                         <section className="datetime-location-container">
-                            <div className="datetime">{getWholeDateString(new Date(this.state.event.datetime))}</div>
-                            <div className="location">{this.state.event.location}</div>
+                            <div className="datetime">
+                                <h6 className="heading">
+                                    <span className="logo">logo</span>
+                                    Will be:
+                                </h6>
+                                <h6 className="mainInformation">{getWholeDateString(new Date(this.state.event.datetime))}</h6>
+                            </div>
+                            <div className="location">
+                                <h6 className="heading">
+                                <span className="logo">logo</span>
+                                    Will be held at:
+                                </h6>
+                                <h6 className="mainInformation">{this.state.event.location} Lorem ipsum dolor sit amet consectetur adipisicing elit.</h6>
+                            </div>
                             <div className="map"></div>
                         </section>
-                    </>
+                        {/* Attendees Section */}
+                        <h6 className="heading">
+                            <span className="logo">logo</span>
+                                Attendees:
+                        </h6>
+                        <section className="attendees-container">
+                            {/* Create a name display component */}
+                            {this.state.attendees.map(attendee => {
+                                return (
+                                    <NameDisplay 
+                                        key={attendee.rowid}
+                                        name={attendee.name}
+                                        color="#000"
+                                    />
+                                );
+                            })}
+                        </section>
+                        {/* Items Section */}
+                        <h6 className="heading">
+                            <span className="logo">logo</span>
+                                Items:
+                        </h6>
+                        <section className="items-container">
+                            {(this.state.assignedItems.length > 0 && this.state.items.length > 0) &&
+                                <>
+                                    {this.state.assignedItems.map(assignedItem => {
+                                        if(assignedItem) {
+                                            const targetItem = this.state.items.find(item => item.rowid === assignedItem.rowid);
+                                            if(targetItem) {
+                                                return (
+                                                    <div 
+                                                        key={assignedItem.rowid}
+                                                        className="item"
+                                                    >
+                                                        {targetItem.name}
+                                                    </div>
+                                                );
+                                            }
+                                        }
+                                    })}
+                                </>
+                            }
+                        </section>
+
+                    </div>
                 }
                 
             </>

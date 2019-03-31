@@ -1,0 +1,19 @@
+@import 'utils';
+
+.attendee {
+    @extend %body-font;
+
+    span {
+        vertical-align: middle;
+    }
+
+    .color {
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        background-color: grey;
+        margin-right: 10px;
+        border-radius: 3px;
+        border: 2px solid black;
+    }
+}

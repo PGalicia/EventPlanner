@@ -11,6 +11,24 @@ $minWidth: 830px;
 $headerHeight: 100px;
 
 /*
+    Global Class Property
+*/
+.container {
+    padding: 0 25px;
+    position: relative;
+}
+
+.title-name {
+    font-family: $fontKarla;
+    font-size: 64px;
+    color: $blue;
+    letter-spacing: 5px;
+    padding: 10px 0 25px 0;
+    margin: 0 auto;
+}
+
+
+/*
     Global Group Property
 */
 %container-size {
@@ -25,13 +43,10 @@ $headerHeight: 100px;
     background-color: $blue;
 }
 
-%title-style {
+%body-font {
     font-family: $fontKarla;
-    font-size: 64px;
-    color: $blue;
-    letter-spacing: 5px;
-    padding: 10px 10px 10px 25px;
-    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 100;
 }
 
 /*

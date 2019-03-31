@@ -4,7 +4,6 @@
     width: 100vw;
     height: $headerHeight;
     @extend %container-size;
-    position: relative;
 
     .edit-button,
     .back-button,
@@ -37,4 +36,77 @@
         left: 25px;
         top: 0;
     }
+}
+
+.view-event-body-container {
+
+    position: relative;
+
+    h6 {
+        margin: 0;
+    }
+
+    .heading {
+        @include subHeading(0);
+        padding-bottom: 10px;
+
+        span {
+            padding-right: 5px;
+        }
+    }
+
+    .datetime-location-container {
+        display: grid;
+        grid-template-columns: 500px auto;
+        grid-template-rows: 75px 100px;
+        grid-gap: 10px;
+        padding-bottom: 25px;
+
+        .mainInformation {
+            padding-left: 10px;
+            @extend %body-font;
+        }
+
+        .datetime {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .location {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .map {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            background-color: grey;
+            border-radius: 10px;
+        }
+    }
+
+    .sort-container {
+        position: relative;
+        background-color: grey;
+        width: 250px;
+        height: 75px;
+        left: 5%;
+        margin: 10px 0;
+
+    }
+
+    .attendees-container,
+    .items-container {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .attendees-container {
+
+        padding-bottom: 25px;
+    }
+
 }
