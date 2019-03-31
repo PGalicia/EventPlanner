@@ -7,6 +7,7 @@ import './../../../scss/eventCard.scss'; // SCSS
 import { connect } from "react-redux"; // Redux
 import { convertNumToDays } from "./../../utils/convertNumToDays.js"; // Utility Function
 import { convertNumToMonths } from "./../../utils/convertNumToMonths.js"; // Utility Function
+import { formatEventTitle } from "./../../utils/formatEventTitle.js"; // Utility Function
 import { Link } from "react-router-dom"; // React-Router
 
 /*
@@ -68,7 +69,7 @@ class EventCard extends Component {
                 }
                 {/* Event Card Main Information Container */}
                 <div className="event-info-container">
-                    <h2 className="event-name">{this.state.event.name}</h2>
+                    <h2 className="event-name">{formatEventTitle(this.state.event.name)}</h2>
                     {this.state.isEventCardContainerExpanded && 
                         <>
                             <h4 className="event-location">

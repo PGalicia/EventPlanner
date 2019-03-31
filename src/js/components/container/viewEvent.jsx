@@ -10,6 +10,7 @@ import EditEvent from "./../container/editEvent.jsx"; // Component
 import NameDisplay from "./../presentational/nameDisplay.jsx" // Component
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
 import { getWholeDateString } from "../../utils/getWholeDateString.js"; // Utility Functions
+import { formatEventTitle } from "./../../utils/formatEventTitle.js"; // Utility Function
 
 /*
   mapStateToProps,
@@ -89,7 +90,7 @@ class ViewEvent extends Component {
 
                 {this.state.event &&
                     <div className="view-event-body-container container">
-                        <h2 className="title-name">{this.state.event.name}</h2>
+                        <h2 className="title-name">{formatEventTitle(this.state.event.name)}</h2>
                         <section className="datetime-location-container">
                             <div className="datetime">
                                 <h6 className="heading">
