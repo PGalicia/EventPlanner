@@ -1,0 +1,66 @@
+@import 'utils';
+
+.assign-items-header-container {
+    width: 100vw;
+    height: $headerHeight;
+    @extend %container-size;
+
+    .cancel-button,
+    .submit-button {
+        @extend %header-circle;
+
+        h2 {
+            margin: 0 auto;
+            position: absolute;
+            @include centerContent(-50%, -50%);
+        }
+    }
+
+    .submit-button {
+        position: absolute;
+        right: 25px;
+    }
+    
+    .cancel-button {
+        position: relative;
+        float: left;
+        left: 25px;
+        top: 0;
+    }
+
+}
+
+.assign-items-body-container {
+
+    h6 {
+        margin: 0;
+    }
+    
+    .heading {
+        @include subHeading(0);
+        padding-bottom: 15px;
+
+        span {
+            font-family: $fontMont;
+            font-style: italic;
+            font-weight: 100;
+        }
+    }
+
+    .select-items-container,
+    .choose-people-container {
+        display: grid;
+        width: 90%;
+        margin: 0 auto;
+        grid-template-columns: repeat(2, auto);
+        grid-auto-rows: 25px;
+        grid-gap: 10px;
+        @extend %body-font;
+        padding-bottom: 25px;
+    }
+
+    .review-container {
+        width: 90%;
+        margin: 0 auto;
+    }
+}

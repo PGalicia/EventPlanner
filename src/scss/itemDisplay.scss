@@ -5,28 +5,28 @@
     border-radius: 5px;
     position: relative;
     margin: 5px;
-    cursor: pointer;
-    border: none;
     padding: 0;
     flex: auto;
+    overflow: hidden;
 
-    > * {
+    > *::before {
         display: inline-block;
-        vertical-align: top;
     }
 
     .item-name {
         @extend %body-font;
         position: relative;
         float: left;
+        height: 100%;
         padding: 0 10px;
+        padding-top: 10px;
+        color: white;
         
     }
 
     .block {
-        background-color: red;
         position: relative;
-        width: 25px;
+        width: 35px;
         height: 100%;
         float: right;
     }

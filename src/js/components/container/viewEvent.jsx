@@ -12,6 +12,7 @@ import ItemDisplay from "./../presentational/itemDisplay.jsx"; // Component
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
 import { getWholeDateString } from "../../utils/getWholeDateString.js"; // Utility Functions
 import { formatEventTitle } from "./../../utils/formatEventTitle.js"; // Utility Function
+import { chooseColors } from "./../../utils/chooseColors.js"; // Utility Function
 
 /*
   mapStateToProps,
@@ -49,25 +50,56 @@ class ViewEvent extends Component {
     }
 
     componentDidMount() {
+
         // Fetch the events with the specified eventId
         fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
-            .then(res => res.json())
-            .then(event => {
+        .then(res => res.json())
+        .then(event => {
+                this.setState({ event });
                 
-                // Find which attendees are going
+                // Find which attendees are going and assign colors
                 const people = event.guests;
                 const attendees = people.filter(person => person.event_guest.isGoing);
+
+                const colorArray = chooseColors(attendees.length);
+                for(let i = 0; i < attendees.length; i++) {
+                    attendees[i]["color"] = colorArray[i].color;
+                }
                 this.setState({ attendees });
 
-                // Find which items are present in the event
-                const assignedItems = event.assignedItems;
+                // Attendees
+                let itemKeys = new Set([]);
                 
+                for(let item of event.assignedItems) {
+                    itemKeys.add(item.itemId)
+                }
+                
+                itemKeys = [ ...itemKeys ];
+                let assignedItems = [];
+
+                for(let itemId of itemKeys) {
+                    let x = event.assignedItems.filter(item => item.itemId === itemId);
+                    let y = [];
+                    x.forEach(row => {
+                        let attendee = attendees.find(attendee => row.guestId === attendee.rowid);
+                        return y.push({
+                            id: row.guestId,
+                            color: attendee ? attendee.color : 'grey'
+                        })
+                    });
+                    let formattedAssignedObject = {
+                        itemId,
+                        attendees: y
+                    }
+                    assignedItems.push(formattedAssignedObject);
+                }
+
+                // Find which items are present in the event
                 this.setState({ assignedItems });
 
-                this.setState({ event });
             })
             .then(() => {
-                return fetch(`${REST_API_BASE_PATH}/items/`);
+                return fetch(`${REST_API_BASE_PATH}/items/`) ;
             })
             .then(res => res.json())
             .then(items => this.setState({ items }))
@@ -124,7 +156,7 @@ class ViewEvent extends Component {
                                     <NameDisplay 
                                         key={attendee.rowid}
                                         name={formatEventTitle(attendee.name)}
-                                        color="#000"
+                                        color={attendee.color}
                                     />
                                 );
                             })}
@@ -143,13 +175,13 @@ class ViewEvent extends Component {
                                 <>
                                     {this.state.assignedItems.map(assignedItem => {
                                         if(assignedItem) {
-                                            const targetItem = this.state.items.find(item => item.rowid === assignedItem.rowid);
+                                            const targetItem = this.state.items.find(item => item.rowid === assignedItem.itemId);
                                             if(targetItem) {
                                                 return (
                                                     <ItemDisplay
                                                         key={assignedItem.rowid}
                                                         name={formatEventTitle(targetItem.name)}
-                                                        count={Math.floor(Math.random() * Math.floor(3))}
+                                                        attendees={assignedItem.attendees}
                                                     />
                                                 );
                                             }
@@ -158,6 +190,10 @@ class ViewEvent extends Component {
                                 </>
                             }
                         </section>
+                        {/* Reassign Items Button */}
+                        <div className="reassign-items-button">
+                            <Link to={`/assign/${this.state.event.rowid}`}><button>Reassign Items</button></Link>  
+                        </div>
 
                     </div>
                 }
