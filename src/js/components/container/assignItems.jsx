@@ -11,6 +11,7 @@ import { chooseColors } from "./../../utils/chooseColors.js"; // Utility Functio
 import { connect } from "react-redux"; // Redux
 import { updateAssignItemsChecklist } from "./../../actions/index.js"; // Action Types
 import Checkbox from "./../presentational/checkbox.jsx"; // Component 
+import ReviewCardAttendee from "../presentational/reviewCardAttendee.jsx"; // Component
 
 /*
     mapStateToProps,
@@ -96,7 +97,6 @@ class AssignItems extends Component {
             }
 
             this.props.updateAssignItemsChecklist(selectedAssignedItems);
-            console.log(selectedAssignedItems);
             
 
             // // Find which items are present in the event
@@ -195,13 +195,25 @@ class AssignItems extends Component {
                             })}
                         </section>
 
-                        {/* Review Container */}
+                        {/* Chosen Items Container */}
                         <h6 className="heading">
-                                Review:
+                                Chosen Items:
                         </h6>
-                        <section className="review-container">
+                        <section className="chosen-items-container">
                             
                         </section>
+
+                        {/* Chosen Peopl Container */}
+                        {this.props.selectedAssignedItems.selectedAttendee.filter(attendee => attendee.isChosen).length > 0 &&
+                            <>
+                                <h6 className="heading">
+                                        Chosen People:
+                                </h6>
+                                <section className="chosen-people-container">
+                                    <ReviewCardAttendee chosenAttendees={this.props.selectedAssignedItems.selectedAttendee}/>
+                                </section>
+                            </>
+                        }
 
                         {/* Buttons */}
 

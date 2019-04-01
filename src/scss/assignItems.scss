@@ -59,8 +59,10 @@
         padding-bottom: 25px;
     }
 
-    .review-container {
+    .chosen-items-container,
+    .chosen-people-container {
         width: 90%;
         margin: 0 auto;
+        position: relative;
     }
 }
