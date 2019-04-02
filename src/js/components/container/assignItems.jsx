@@ -12,6 +12,7 @@ import { connect } from "react-redux"; // Redux
 import { updateAssignItemsChecklist } from "./../../actions/index.js"; // Action Types
 import Checkbox from "./../presentational/checkbox.jsx"; // Component 
 import ReviewCardAttendee from "../presentational/reviewCardAttendee.jsx"; // Component
+import ReviewCardItem from "../presentational/reviewCardItem.jsx"; // Component
 
 /*
     mapStateToProps,
@@ -47,6 +48,7 @@ class AssignItems extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -131,6 +133,32 @@ class AssignItems extends Component {
         this.props.updateAssignItemsChecklist(selectedAssignedItems);
     }
 
+    handleSubmit(e) {
+        console.log("submit");
+        // Find the selected items
+        // Iterate through the selected items
+            // Delete every row that has the selected item in the table
+            // Format Items to look like the rows in the assignedItems table
+            // Add the item to the row
+        // Redirect back to event page
+
+        const selectedAssignedItems = this.props.selectedAssignedItems;
+
+        
+        for(let item of selectedAssignedItems.selectedItems) {
+            
+            // Delete every row that has the selected item in the table
+            // DELETE request here /items/eventid/itemid
+
+
+            for(let attendee of selectedAssignedItems.selectedAttendee) {
+                // POST request here /items/eventid/itemid/guestid
+
+            }
+        }
+        // this.props.history.push(`/events/${this.props.match.params.eventId}`);
+    }
+
     render() {
         return (
             <>
@@ -138,9 +166,12 @@ class AssignItems extends Component {
                     <div className="cancel-button">
                         <h2><Link to={`/events/${this.props.match.params.eventId}`}>Cancel</Link></h2>
                     </div>
-                    <div className="submit-button">
-                        <h2><Link to={`/events/${this.props.match.params.eventId}`}>Submit</Link></h2>
+                    <div className="submit-button" onClick={this.handleSubmit}>
+                        <h2>Submit</h2>
                     </div>
+                    {/* <div className="submit-button">
+                        <h2><Link to={`/events/${this.props.match.params.eventId}`}>Submit</Link></h2>
+                    </div> */}
                 </div>
 
                 {this.state.event &&
@@ -196,13 +227,19 @@ class AssignItems extends Component {
                         </section>
 
                         {/* Chosen Items Container */}
-                        <h6 className="heading">
-                                Chosen Items:
-                        </h6>
-                        <section className="chosen-items-container">
-                            
-                        </section>
-
+                        {this.props.selectedAssignedItems.selectedItems.filter(item => item.isChosen).length > 0 &&
+                            <>
+                                <h6 className="heading">
+                                        Chosen Items:
+                                </h6>
+                                <section className="chosen-items-container">
+                                    <ReviewCardItem 
+                                        chosenItems={this.props.selectedAssignedItems.selectedItems}
+                                        items={this.state.items}
+                                    />
+                                </section>
+                            </>
+                        }
                         {/* Chosen Peopl Container */}
                         {this.props.selectedAssignedItems.selectedAttendee.filter(attendee => attendee.isChosen).length > 0 &&
                             <>
@@ -214,8 +251,6 @@ class AssignItems extends Component {
                                 </section>
                             </>
                         }
-
-                        {/* Buttons */}
 
                         
                         

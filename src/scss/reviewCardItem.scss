@@ -1,18 +1,18 @@
 @import 'utils';
 
-.review-card-attendees-container {
+.review-card-items-container {
     position: relative;
     display: flex;
-    height: 100px;
-    background-color: grey;
+    height: 50px;
     border-radius: 10px;
-    overflow: hidden;
 
-    .attendee-container {
+    .item-container {
+
         display: inline-block;
         position: relative;
         height: 100%;
-        flex: 1;
+        
+        background-color: $blue;
         text-align: center;
         
         h6 {
@@ -22,7 +22,5 @@
             @extend %body-font;
             color: white;
         }
-
-
     }
 }
