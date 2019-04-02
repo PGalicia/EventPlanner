@@ -22,7 +22,7 @@ const ItemDisplay = props => {
             {props.attendees.slice(1).map(attendee => {
                 return (
                     <div 
-                        key={attendee.rowid} 
+                        key={props.attendees.indexOf(attendee)} 
                         className="block" 
                         style={{backgroundColor: attendee.color}}
                     />

@@ -3,16 +3,20 @@
 */
 
 import React, { Component } from "react"; // React
-import { Link } from "react-router-dom"; // React-Router-Dom
+import { Link, Redirect } from "react-router-dom"; // React-Router-Dom
 import "./../../../scss/assignItems.scss"; // SCSS
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
 import { formatEventTitle } from "./../../utils/formatEventTitle.js"; // Constants
 import { chooseColors } from "./../../utils/chooseColors.js"; // Utility Function
 import { connect } from "react-redux"; // Redux
-import { updateAssignItemsChecklist } from "./../../actions/index.js"; // Action Types
+import { 
+    updateAssignItemsChecklist,
+    reloadPage
+} from "./../../actions/index.js"; // Action Types
 import Checkbox from "./../presentational/checkbox.jsx"; // Component 
 import ReviewCardAttendee from "../presentational/reviewCardAttendee.jsx"; // Component
 import ReviewCardItem from "../presentational/reviewCardItem.jsx"; // Component
+
 
 /*
     mapStateToProps,
@@ -20,13 +24,15 @@ import ReviewCardItem from "../presentational/reviewCardItem.jsx"; // Component
 */
 const mapStateToProps = state => {
     return {
-        selectedAssignedItems: state.selectedAssignedItems
+        selectedAssignedItems: state.selectedAssignedItems,
+        shouldReloadPage: state.shouldReloadPage
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateAssignItemsChecklist: checklist => dispatch(updateAssignItemsChecklist(checklist))
+        updateAssignItemsChecklist: checklist => dispatch(updateAssignItemsChecklist(checklist)),
+        reloadPage: bool => dispatch(reloadPage(bool))
     }
 }
 
@@ -44,7 +50,8 @@ class AssignItems extends Component {
             attendees: [],
             assignedItems: [],
             items: [],
-            eventItems: []
+            eventItems: [],
+            backToViewEventPage: false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -143,23 +150,73 @@ class AssignItems extends Component {
         // Redirect back to event page
 
         const selectedAssignedItems = this.props.selectedAssignedItems;
+        const eventId = this.state.event.rowid;
+
+        // console.log("eventId", eventId);
+        // console.log(this.state.event.assignedItems);
+        // console.log(selectedAssignedItems);
 
         
         for(let item of selectedAssignedItems.selectedItems) {
             
+            // If item is not chosen, skip it
+            if(!item.isChosen) {
+                continue;
+            }
+
             // Delete every row that has the selected item in the table
             // DELETE request here /items/eventid/itemid
+            // console.log("itemId", item.itemId);
+
+            fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}`, {
+                method: 'DELETE'
+            })
+                .then(() => {
+                    for(let attendee of selectedAssignedItems.selectedAttendee) {
+
+                        // If attendee is not chosen, skip it
+                        if(!attendee.isChosen) {
+                            continue;
+                        }
+        
+                        fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}/${attendee.rowid}`, {
+                            method: 'POST'
+                        })
+        
+                        // POST request here /items/eventid/itemid/guestid
+                        // console.log("guestId", attendee.rowid)
+        
+                    }
+                })
+                // .then(() => {this.setState({ backToViewEventPage: !this.state.backToViewEventPage })})
 
 
-            for(let attendee of selectedAssignedItems.selectedAttendee) {
-                // POST request here /items/eventid/itemid/guestid
+            // for(let attendee of selectedAssignedItems.selectedAttendee) {
 
-            }
+            //     // If attendee is not chosen, skip it
+            //     if(!attendee.isChosen) {
+            //         continue;
+            //     }
+
+            //     fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}/${attendee.rowid}`, {
+            //         method: 'POST'
+            //     })
+
+            //     // POST request here /items/eventid/itemid/guestid
+            //     console.log("guestId", attendee.rowid)
+
+            // }
         }
         // this.props.history.push(`/events/${this.props.match.params.eventId}`);
+        this.props.reloadPage(true);
+        this.setState({ backToViewEventPage: !this.state.backToViewEventPage })
     }
 
     render() {
+        if(this.state.backToViewEventPage) {
+            return <Redirect push to={`/events/${this.props.match.params.eventId}`} />
+        }
+
         return (
             <>
                 <div className="assign-items-header-container">

@@ -6,6 +6,9 @@ import React, { Component } from "react"; // React
 import { connect } from "react-redux"; // Redux
 import { Link } from "react-router-dom"; // React-Router
 import "./../../../scss/viewEvent.scss"; // SCSS
+import {
+    reloadPage
+} from "./../../actions/index.js"; // Action Types
 import EditEvent from "./../container/editEvent.jsx"; // Component
 import NameDisplay from "./../presentational/nameDisplay.jsx" // Component
 import ItemDisplay from "./../presentational/itemDisplay.jsx"; // Component
@@ -21,13 +24,14 @@ import { chooseColors } from "./../../utils/chooseColors.js"; // Utility Functio
 
 const mapStateToProps = state => {
     return {
-        events: state.events
+        events: state.events,
+        shouldReloadPage: state.shouldReloadPage
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        reloadPage: bool => dispatch(reloadPage(bool))
     };
 }
 
@@ -51,6 +55,7 @@ class ViewEvent extends Component {
 
     componentDidMount() {
 
+        // console.log("activate");
         // Fetch the events with the specified eventId
         fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
         .then(res => res.json())
@@ -103,6 +108,16 @@ class ViewEvent extends Component {
             })
             .then(res => res.json())
             .then(items => this.setState({ items }))
+    }
+
+    componentDidUpdate() {
+        console.log("update", this.props.shouldReloadPage)
+        if(this.props.shouldReloadPage) {
+            this.props.reloadPage(false);
+
+            // Temporary Fix about rerendering issue
+            window.location.reload();
+        }
     }
 
     render() {
@@ -179,7 +194,7 @@ class ViewEvent extends Component {
                                             if(targetItem) {
                                                 return (
                                                     <ItemDisplay
-                                                        key={assignedItem.rowid}
+                                                        key={this.state.assignedItems.indexOf(assignedItem)}
                                                         name={formatEventTitle(targetItem.name)}
                                                         attendees={assignedItem.attendees}
                                                     />
