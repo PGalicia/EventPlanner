@@ -43,8 +43,6 @@ class ViewEvent extends Component {
     constructor() {
         super();
 
-        this.divWidth = React.createRef();
-
         this.state = {
             event: null,
             attendees: [],
@@ -146,10 +144,6 @@ class ViewEvent extends Component {
     render() {
         return(
             <>
-                {/* <h1>View Event {this.props.match.params.eventId} Component</h1>
-                <h2><Link to={"/"}>Back to Home</Link></h2>
-                <h3><Link to={"/edit/1"}>Edit {this.props.match.params.eventId}</Link></h3> */}
-
                 <div className="view-event-header-container">
                     <div className="back-button">
                         <h2><Link to={'/'}>Back</Link></h2>

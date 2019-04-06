@@ -1,0 +1,37 @@
+@import 'utils';
+
+.edit-event-header-container {
+    width: 100vw;
+    height: $headerHeight;
+    @extend %container-size;
+
+    .submit-button,
+    .back-button,
+    .delete-button {
+        @extend %header-circle;
+
+        h2 {
+            margin: 0 auto;
+            position: absolute;
+            @include centerContent(-50%, -50%);
+        }
+    }
+
+
+    .delete-button {
+        position: absolute;
+        right: 25px;
+    }
+    
+    .submit-button {
+        position: absolute;
+        right: 125px;
+    }
+    
+    .back-button {
+        position: relative;
+        float: left;
+        left: 25px;
+        top: 0;
+    }
+}

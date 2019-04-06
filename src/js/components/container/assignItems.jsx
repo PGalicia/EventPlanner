@@ -157,6 +157,7 @@ class AssignItems extends Component {
                 // **Temporary fix
                 this.props.rerenderPage(true);
                 this.setState({ backToViewEventPage: true })
+                return;
         }
 
         for(let item of selectedAssignedItems.selectedItems) {
