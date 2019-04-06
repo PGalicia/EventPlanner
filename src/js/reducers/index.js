@@ -5,7 +5,7 @@
 import { 
     FETCH_ALL_EVENT, 
     UPDATE_ASSIGN_ITEMS_CHECKLIST,
-    RELOAD_PAGE
+    RERENDER_PAGE
 } from "../constants/action-types.js"; // Components
 
 /*
@@ -20,7 +20,7 @@ const initialState = {
         selectedItems: [],
         selectedAttendee: []
     },
-    shouldReloadPage: false
+    shouldReRenderPage: false
 };
 
 
@@ -33,8 +33,8 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, events: action.payload };
         case UPDATE_ASSIGN_ITEMS_CHECKLIST:
             return { ...state, selectedAssignedItems: action.payload };
-        case RELOAD_PAGE:
-            return { ...state, shouldReloadPage: action.payload };
+        case RERENDER_PAGE:
+            return { ...state, shouldReRenderPage: action.payload };
         default:
             return state;
     }

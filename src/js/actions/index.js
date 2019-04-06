@@ -6,7 +6,7 @@
 import {
     FETCH_ALL_EVENT,
     UPDATE_ASSIGN_ITEMS_CHECKLIST,
-    RELOAD_PAGE
+    RERENDER_PAGE
 } from "./../constants/action-types.js";
 
 /*
@@ -22,8 +22,8 @@ export const updateAssignItemsChecklist = checklist => ({
     payload: checklist
 });
 
-export const reloadPage = bool => ({
-    type: RELOAD_PAGE,
+export const rerenderPage = bool => ({
+    type: RERENDER_PAGE,
     payload: bool
 });
 

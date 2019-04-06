@@ -11,11 +11,10 @@ import { chooseColors } from "./../../utils/chooseColors.js"; // Utility Functio
 import { connect } from "react-redux"; // Redux
 import { 
     updateAssignItemsChecklist,
-    reloadPage
+    rerenderPage
 } from "./../../actions/index.js"; // Action Types
 import Checkbox from "./../presentational/checkbox.jsx"; // Component 
-import ReviewCardAttendee from "../presentational/reviewCardAttendee.jsx"; // Component
-import ReviewCardItem from "../presentational/reviewCardItem.jsx"; // Component
+import ReviewCard from "../presentational/reviewCard.jsx"; // Component
 
 
 /*
@@ -25,14 +24,14 @@ import ReviewCardItem from "../presentational/reviewCardItem.jsx"; // Component
 const mapStateToProps = state => {
     return {
         selectedAssignedItems: state.selectedAssignedItems,
-        shouldReloadPage: state.shouldReloadPage
+        shouldReRenderPage: state.shouldReRenderPage
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         updateAssignItemsChecklist: checklist => dispatch(updateAssignItemsChecklist(checklist)),
-        reloadPage: bool => dispatch(reloadPage(bool))
+        rerenderPage: bool => dispatch(rerenderPage(bool))
     }
 }
 
@@ -141,7 +140,6 @@ class AssignItems extends Component {
     }
 
     handleSubmit(e) {
-        console.log("submit");
         // Find the selected items
         // Iterate through the selected items
             // Delete every row that has the selected item in the table
@@ -151,22 +149,22 @@ class AssignItems extends Component {
 
         const selectedAssignedItems = this.props.selectedAssignedItems;
         const eventId = this.state.event.rowid;
-
-        // console.log("eventId", eventId);
-        // console.log(this.state.event.assignedItems);
-        // console.log(selectedAssignedItems);
-
         
+        // If there are items chosen but no attendees, then return the items as unassigned
+        if(selectedAssignedItems.selectedItems.filter(item => item.isChosen).length > 0 ||
+            selectedAssignedItems.selectedAttendee.filter(attendee => attendee.isChosen).length === 0) {
+
+                // **Temporary fix
+                this.props.rerenderPage(true);
+                this.setState({ backToViewEventPage: true })
+        }
+
         for(let item of selectedAssignedItems.selectedItems) {
             
             // If item is not chosen, skip it
             if(!item.isChosen) {
                 continue;
             }
-
-            // Delete every row that has the selected item in the table
-            // DELETE request here /items/eventid/itemid
-            // console.log("itemId", item.itemId);
 
             fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}`, {
                 method: 'DELETE'
@@ -183,40 +181,22 @@ class AssignItems extends Component {
                             method: 'POST'
                         })
         
-                        // POST request here /items/eventid/itemid/guestid
-                        // console.log("guestId", attendee.rowid)
-        
                     }
                 })
-                // .then(() => {this.setState({ backToViewEventPage: !this.state.backToViewEventPage })})
-
-
-            // for(let attendee of selectedAssignedItems.selectedAttendee) {
-
-            //     // If attendee is not chosen, skip it
-            //     if(!attendee.isChosen) {
-            //         continue;
-            //     }
-
-            //     fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}/${attendee.rowid}`, {
-            //         method: 'POST'
-            //     })
-
-            //     // POST request here /items/eventid/itemid/guestid
-            //     console.log("guestId", attendee.rowid)
-
-            // }
+                .then(() => {
+                    this.props.rerenderPage(true);
+                    this.setState({ backToViewEventPage: true })
+                })
         }
-        // this.props.history.push(`/events/${this.props.match.params.eventId}`);
-        this.props.reloadPage(true);
-        this.setState({ backToViewEventPage: !this.state.backToViewEventPage })
     }
 
     render() {
-        if(this.state.backToViewEventPage) {
-            return <Redirect push to={`/events/${this.props.match.params.eventId}`} />
-        }
 
+        // Redirects the page after submit
+        if(this.state.backToViewEventPage) {
+            return <Redirect to={`/events/${this.props.match.params.eventId}`} />
+        }
+    
         return (
             <>
                 <div className="assign-items-header-container">
@@ -226,9 +206,6 @@ class AssignItems extends Component {
                     <div className="submit-button" onClick={this.handleSubmit}>
                         <h2>Submit</h2>
                     </div>
-                    {/* <div className="submit-button">
-                        <h2><Link to={`/events/${this.props.match.params.eventId}`}>Submit</Link></h2>
-                    </div> */}
                 </div>
 
                 {this.state.event &&
@@ -261,57 +238,45 @@ class AssignItems extends Component {
                         </section>
 
                         {/* Choose People Container */}
-                        <h6 className="heading">
-                                Choose people: <span>max 5</span>
-                        </h6>
-                        <section className="choose-people-container">
-                            {this.props.selectedAssignedItems.selectedAttendee.map(attendee => {
-                                const obj = this.state.attendees.find(a => a.rowid === attendee.rowid);
-                                if(obj) {
-                                    return (
-                                        <Checkbox 
-                                            key={obj.rowid}
-                                            id={obj.rowid}
-                                            name={obj.name}
-                                            category={"attendee"}
-                                            isChosen={attendee.isChosen}
-                                            handleChange={this.handleChange}
-                                        />
-                                    );
-                                }
-                                    
-                            })}
-                        </section>
-
-                        {/* Chosen Items Container */}
                         {this.props.selectedAssignedItems.selectedItems.filter(item => item.isChosen).length > 0 &&
                             <>
                                 <h6 className="heading">
-                                        Chosen Items:
+                                Choose people: <span>max 5</span>
                                 </h6>
-                                <section className="chosen-items-container">
-                                    <ReviewCardItem 
-                                        chosenItems={this.props.selectedAssignedItems.selectedItems}
-                                        items={this.state.items}
-                                    />
+                                <section className="choose-people-container">
+                                    {this.props.selectedAssignedItems.selectedAttendee.map(attendee => {
+                                        const obj = this.state.attendees.find(a => a.rowid === attendee.rowid);
+                                        if(obj) {
+                                            return (
+                                                <Checkbox 
+                                                    key={obj.rowid}
+                                                    id={obj.rowid}
+                                                    name={obj.name}
+                                                    category={"attendee"}
+                                                    isChosen={attendee.isChosen}
+                                                    handleChange={this.handleChange}
+                                                    color={attendee.color}
+                                                />
+                                            );
+                                        }
+                                            
+                                    })}
                                 </section>
                             </>
                         }
-                        {/* Chosen Peopl Container */}
+                    
+
+                        {/* Chosen People Container */}
                         {this.props.selectedAssignedItems.selectedAttendee.filter(attendee => attendee.isChosen).length > 0 &&
                             <>
                                 <h6 className="heading">
                                         Chosen People:
                                 </h6>
                                 <section className="chosen-people-container">
-                                    <ReviewCardAttendee chosenAttendees={this.props.selectedAssignedItems.selectedAttendee}/>
+                                    <ReviewCard chosenAttendees={this.props.selectedAssignedItems.selectedAttendee}/>
                                 </section>
                             </>
-                        }
-
-                        
-                        
-                        
+                        }               
 
                     </div>
                 }

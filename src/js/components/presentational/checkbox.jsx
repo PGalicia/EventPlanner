@@ -23,7 +23,7 @@ const Checkbox = props => {
                 onChange={props.handleChange}
             />
             
-            <span className="checkmark"></span>
+            <span className="checkmark" style={{'backgroundColor': props.color}}></span>
         </label>
     );
 }

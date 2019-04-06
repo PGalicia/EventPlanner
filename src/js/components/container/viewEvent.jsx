@@ -7,7 +7,7 @@ import { connect } from "react-redux"; // Redux
 import { Link } from "react-router-dom"; // React-Router
 import "./../../../scss/viewEvent.scss"; // SCSS
 import {
-    reloadPage
+    rerenderPage
 } from "./../../actions/index.js"; // Action Types
 import EditEvent from "./../container/editEvent.jsx"; // Component
 import NameDisplay from "./../presentational/nameDisplay.jsx" // Component
@@ -25,13 +25,13 @@ import { chooseColors } from "./../../utils/chooseColors.js"; // Utility Functio
 const mapStateToProps = state => {
     return {
         events: state.events,
-        shouldReloadPage: state.shouldReloadPage
+        shouldReRenderPage: state.shouldReRenderPage
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        reloadPage: bool => dispatch(reloadPage(bool))
+        rerenderPage: bool => dispatch(rerenderPage(bool))
     };
 }
 
@@ -51,16 +51,39 @@ class ViewEvent extends Component {
             assignedItems: [],
             items: []
         }
+
+        this.fetchAndFormatEventInformation = this.fetchAndFormatEventInformation.bind(this);
     }
 
     componentDidMount() {
 
-        // console.log("activate");
+        this.fetchAndFormatEventInformation();
+
+    }
+
+
+
+    componentDidUpdate() {
+
+        // Rerenders the page during a link Redirect
+        if(this.props.shouldReRenderPage) {
+            
+            this.fetchAndFormatEventInformation();
+            this.props.rerenderPage(false);
+        }
+    }
+
+    fetchAndFormatEventInformation() {
+
+        let newEvent = null;
+        let newAttendees = null;
+        let newAssignedItem = null;
+        let newItems = null;
+
         // Fetch the events with the specified eventId
         fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
         .then(res => res.json())
         .then(event => {
-                this.setState({ event });
                 
                 // Find which attendees are going and assign colors
                 const people = event.guests;
@@ -70,7 +93,6 @@ class ViewEvent extends Component {
                 for(let i = 0; i < attendees.length; i++) {
                     attendees[i]["color"] = colorArray[i].color;
                 }
-                this.setState({ attendees });
 
                 // Attendees
                 let itemKeys = new Set([]);
@@ -99,25 +121,26 @@ class ViewEvent extends Component {
                     assignedItems.push(formattedAssignedObject);
                 }
 
-                // Find which items are present in the event
-                this.setState({ assignedItems });
+                newEvent = event;
+                newAttendees = attendees;
+                newAssignedItem = assignedItems;
 
             })
             .then(() => {
                 return fetch(`${REST_API_BASE_PATH}/items/`) ;
             })
             .then(res => res.json())
-            .then(items => this.setState({ items }))
-    }
-
-    componentDidUpdate() {
-        console.log("update", this.props.shouldReloadPage)
-        if(this.props.shouldReloadPage) {
-            this.props.reloadPage(false);
-
-            // Temporary Fix about rerendering issue
-            window.location.reload();
-        }
+            .then(items => {
+                newItems = items;
+            })
+            .then(() => {
+                this.setState({
+                    event: newEvent,
+                    attendees: newAttendees,
+                    assignedItems: newAssignedItem,
+                    items: newItems
+                });
+            })
     }
 
     render() {

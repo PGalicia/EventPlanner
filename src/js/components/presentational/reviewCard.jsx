@@ -3,7 +3,7 @@
 */
 
 import React from "react"; // React
-import "./../../../scss/reviewCardAttendee.scss"; // SCSS
+import "./../../../scss/reviewCard.scss"; // SCSS
 
 /*
     ReviewCardAttendee Component
