@@ -1,0 +1,89 @@
+@import 'utils';
+
+.edit-time-container {
+    position: relative;
+    display: grid;
+    height: 50px;
+    width: 325px;
+    grid-template-columns: auto 10px auto 50px 50px;
+    box-sizing: border-box;
+    grid-gap: 10px;
+
+    > * {
+        position: relative;
+        @extend %body-font;
+    }
+
+
+    .hour-output,
+    .minute-output {
+        padding: 10px;
+        box-sizing: border-box;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+        background-color: $lightGrey;
+        display: grid;
+        grid-template-columns: auto 30px;
+        
+    }
+
+    .hour,
+    .minute,
+    .access-edit-time-button {
+        position: relative;
+
+        span {
+            position: absolute;
+            @include centerContent(-50%, -50%);
+        }
+    }
+
+    .access-edit-time-button {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: $grey;
+    }
+
+    .colon,
+    .time-of-day-output {
+
+        span {
+            position: absolute;
+            @include centerContent(-50%, -50%);
+        }
+    }
+
+    .time-of-day-output {
+        height: 50px;
+        border-radius: 50%;
+        background-color: $grey;
+        color: white;
+        border: 2px solid $blue;
+    }
+
+    
+    .edit-hours-container,
+    .edit-minutes-container {
+        position: absolute;
+        display: grid;
+        grid-auto-rows: 25px;
+        z-index: 10;
+        top: 100%;
+        width: 100%;
+        height: 170px;
+        border-radius: 10px;
+        background-color: $lightGrey;
+        overflow: scroll;
+
+        .selectable {
+            width: 100%;
+            height: 30px;
+            border-radius: 10px;
+        }
+    }
+    
+}

@@ -35,3 +35,44 @@
         top: 0;
     }
 }
+
+.edit-event-body-container {
+    position: relative;
+
+    .heading {
+        margin: 0;
+        @include subHeading(0);
+        padding-bottom: 10px;
+    }
+
+    .edit-event-main-info-container {
+        position: relative;
+        display: grid;
+        grid-template-columns: 350px auto;
+        grid-gap: 25px;
+        padding-bottom: 25px;
+
+        .input {
+            width: 100%;
+            height: 50px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: none;
+            background-color: $lightGrey;
+            border-radius: 10px;
+            @extend %body-font
+        }
+
+        .name-container,
+        .address-container,
+        .date-container,
+        .time-container {
+            position: relative;
+        }
+
+        .name-container,
+        .address-container {
+            grid-column: span 2;
+        }
+    }
+}

@@ -5,7 +5,7 @@
 import React, { Component } from "react"; // React
 import "./../../../scss/calendar.scss"; // SCSS
 import { generateNumbersArr } from "./../../utils/generateNumbersArr.js" // Utility Functions
-import { MONTHS } from "./../../constants/dateFormat.js";
+import { MONTHS } from "./../../constants/dateFormat.js"; // Constants
 
 /*
     Calendar Component

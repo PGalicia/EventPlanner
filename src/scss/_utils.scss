@@ -4,11 +4,30 @@
 $blue: #3A8BC2;
 $lightBlue: #4E98CA;
 $grey: #A6A6A6;
+$lightGrey: #E5E5E5;
 $backgroundColor: whitesmoke;
 $fontMont: 'Montserrat', sans-serif;
 $fontKarla: 'Karla', sans-serif;
 $minWidth: 830px;
 $headerHeight: 100px;
+
+
+/*
+    Global Utility Functions
+*/
+@mixin centerContent($x, $y) {
+    top: 50%;
+    left: 50%;
+    transform: translate($x, $y);
+}
+
+@mixin subHeading($padding) {
+    font-family: $fontKarla;
+    color: $grey;
+    font-size: 18px;
+    font-weight: 100;
+    padding-left: $padding;
+}
 
 /*
     Global Class Property
@@ -36,6 +55,22 @@ $headerHeight: 100px;
     margin: 0 auto;
 }
 
+.selectable {
+    position: relative;
+    margin: 0 auto;
+    @extend %body-font;
+    text-align: center;
+    cursor: pointer;
+
+    span {
+        position: absolute;
+        @include centerContent(-50%, -50%);
+    }
+
+    &:hover {
+        background-color: $blue;
+    }
+}
 
 /*
     Global Group Property
@@ -56,21 +91,4 @@ $headerHeight: 100px;
     font-family: $fontKarla;
     font-size: 18px;
     font-weight: 100;
-}
-
-/*
-    Global Utility Functions
-*/
-@mixin centerContent($x, $y) {
-    top: 50%;
-    left: 50%;
-    transform: translate($x, $y);
-}
-
-@mixin subHeading($padding) {
-    font-family: $fontKarla;
-    color: $grey;
-    font-size: 18px;
-    font-weight: 100;
-    padding-left: $padding;
 }

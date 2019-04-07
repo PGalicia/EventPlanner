@@ -1,8 +1,5 @@
 @import 'utils';
 
-$lightGrey: #cccccc;
-// $lightGrey: #f2f2f2;
-
 .calendar-container {
     position: relative;
     width: 325px;
@@ -37,23 +34,6 @@ $lightGrey: #cccccc;
         }
 
 
-    }
-
-    .selectable {
-        position: relative;
-        margin: 0 auto;
-        @extend %body-font;
-        text-align: center;
-        cursor: pointer;
-
-        span {
-            position: absolute;
-            @include centerContent(-50%, -50%);
-        }
-
-        &:hover {
-            background-color: $blue;
-        }
     }
 
     .choices-container {
