@@ -157,6 +157,7 @@ class EditEvent extends Component {
         
         const oldDate = new Date(event.datetime);
         let year = oldDate.getFullYear();
+        let time = event.datetime.split("T")[1];
         let month = oldDate.getMonth().toString().length === 1 ? "0".concat(oldDate.getMonth() + 1) : oldDate.getMonth() + 1;
         let date = oldDate.getDate().toString().length === 1 ? "0".concat(oldDate.getDate()) : oldDate.getDate();
         let newDate = null;
@@ -166,15 +167,15 @@ class EditEvent extends Component {
             case "month":
                 let monthStringToID = MONTHS.find(month => month.month.substring(0, 3) === e.currentTarget.textContent).id + 1;
                 formatDate = monthStringToID.toString().length === 1 ? "0".concat(monthStringToID) : monthStringToID;
-                newDate = `${year}-${formatDate}-${date}T10:00:00.000Z`;
+                newDate = `${year}-${formatDate}-${date}T${time}`;
                 break;
             case "date":
                 formatDate = e.currentTarget.textContent.length === 1 ? "0".concat(e.currentTarget.textContent) : e.currentTarget.textContent;
-                newDate = `${year}-${month}-${formatDate}T10:00:00.000Z`;
+                newDate = `${year}-${month}-${formatDate}T${time}`;
                 break;
             case "year":
                 formatDate = e.currentTarget.textContent.length === 1 ? "0".concat(e.currentTarget.textContent) : e.currentTarget.textContent;
-                newDate = `${formatDate}-${month}-${date}T10:00:00.000Z`;
+                newDate = `${formatDate}-${month}-${date}T${time}`;
                 break;
             default:
                 return;
@@ -190,36 +191,47 @@ class EditEvent extends Component {
         let date = event.datetime.split("T");
         let timeFormatted = getWholeDateString(new Date(event.datetime)).split(' ').slice(5);
         let time = date[1].split(":");
-        let timeOfDay = timeFormatted[1];
+        let timeOfDay = 0 <= parseInt(time[0]) && parseInt(time[0]) <= 11 ? "AM" : "PM";
+        // let timeOfDay = timeFormatted[1];
         let adjustedHour = null;
 
         switch(targetTimePart) {
             case "AM":
-                if(time[0] === "00") {
-                    time[0] = "12";
-                    break;
-                }
-                adjustedHour = parseInt(time[0]) % 12;
-                time[0] = adjustedHour.toString().length === 1 ? "0".concat(adjustedHour.toString()) : adjustedHour.toString();
-                console.log("time", time[0]);
+                // if(time[0] === "00") {
+                //     time[0] = "12";
+                //     break;
+                // }
+                // adjustedHour = parseInt(time[0]) % 12;
+                // time[0] = adjustedHour.toString().length === 1 ? "0".concat(adjustedHour.toString()) : adjustedHour.toString();
+                // time[0] = (parseInt(time[0])).toString();
+                // time[0] = time[0].length === 1 ? "0".concat(time[0]) : time[0];
+                timeOfDay = "AM";
+                // console.log(time, timeOfDay);
                 break;
             case "PM":
-                adjustedHour = parseInt(time[0]) > 12 ? parseInt(time[0]) : parseInt(time[0]) + 12;
-                adjustedHour = adjustedHour > 23 ? 0 : adjustedHour;
-                time[0] = adjustedHour.toString().length === 1 ? "0".concat(adjustedHour.toString()) : adjustedHour.toString();
-                // console.log("time", event.datetime);
+                // adjustedHour = parseInt(time[0]) > 12 ? parseInt(time[0]) : parseInt(time[0]) + 12;
+                // adjustedHour = adjustedHour > 23 ? 0 : adjustedHour;
+                // time[0] = adjustedHour.toString().length === 1 ? "0".concat(adjustedHour.toString()) : adjustedHour.toString();
+                // time[0] = ((parseInt(time[0]) % 12) + 12).toString();
+                // time[0] = time[0].length === 1 ? "0".concat(time[0]) : time[0];
+                timeOfDay = "PM";
+                // console.log(time, timeOfDay);
                 break;
             case "hours":
-                if(timeOfDay === "AM" && e.currentTarget.textContent !== "12") {
-                    time[0] = e.currentTarget.textContent.length === 1 ? "0".concat(e.currentTarget.textContent) : e.currentTarget.textContent;
-                    break;
-                } else if(timeOfDay === "AM" && e.currentTarget.textContent === "12") {
-                    time[0] = "00";
-                    break;
-                }
-                adjustedHour = parseInt(e.currentTarget.textContent) + 12;
-                adjustedHour = adjustedHour > 23 ? 0 : adjustedHour;
-                time[0] = adjustedHour.toString().length === 1 ? "0".concat(adjustedHour.toString()) : adjustedHour.toString();
+                // if(timeOfDay === "AM" && e.currentTarget.textContent !== "12") {
+                //     time[0] = e.currentTarget.textContent.length === 1 ? "0".concat(e.currentTarget.textContent) : e.currentTarget.textContent;
+                //     console.log("time", time[0]);
+                //     break;
+                // } else if(timeOfDay === "AM" && e.currentTarget.textContent === "12") {
+                //     time[0] = "00";
+                //     console.log("time", time[0]);
+                //     break;
+                // }
+                // adjustedHour = parseInt(e.currentTarget.textContent) + 12;
+                // adjustedHour = adjustedHour > 23 ? 0 : adjustedHour;
+                // time[0] = adjustedHour.toString().length === 1 ? "0".concat(adjustedHour.toString()) : adjustedHour.toString();
+                time[0] = e.currentTarget.textContent.length === 1 ? "0".concat(e.currentTarget.textContent.toString()) : e.currentTarget.textContent.toString();
+                // console.log("time", time[0]);
                 break;
             case "minutes":
                 time[1] = e.currentTarget.textContent.length === 1 ? "0".concat(e.currentTarget.textContent) : e.currentTarget.textContent;
@@ -228,10 +240,21 @@ class EditEvent extends Component {
                 return;
         }
 
+        // console.log(time, timeOfDay);
+        if(timeOfDay === "AM") {
+            time[0] = (parseInt(time[0]) % 12).toString();
+            // time[0] = time[0].length === 1 ? "0".concat(time[0]) : time[0];
+        } else {
+            time[0] = ((parseInt(time[0]) % 12) + 12).toString();
+        }
+
+        time[0] = time[0].length === 1 ? "0".concat(time[0]) : time[0];
+
+        // console.log(time, timeOfDay);
         date[1] = time.join(":");   
-        // console.log(date[0]);
         event.datetime = date.join("T");
-        this.setState({ event })
+        // console.log("datetime", event.datetime)
+        this.setState({ event });
     }
 
     handleOnChange(e, targetInput) {
@@ -295,11 +318,12 @@ class EditEvent extends Component {
             // If so, just add to assignedItem
             // If not, add to items and add to assignedItem
         if(this.state.newItem.length === 0) { return; }
-        let isItemNew = this.state.items.some(item => item.name.toLowerCase() === this.state.newItem.toLowerCase());
-
+        let isItemNew = this.state.assignedItems.some(item => item.name.toLowerCase() === this.state.newItem.toLowerCase());
+        if(isItemNew) { return; }
+        
         let assignedItems = [ ...this.state.assignedItems ];
         let items = [ ...this.state.items ];
-
+        
         // **This might be pointless since I don't think the program checks the items array when adding it to db
         if(!isItemNew) {
             items.push({
