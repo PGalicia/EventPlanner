@@ -61,6 +61,7 @@ class EditEvent extends Component {
         this.handleDeleteButton = this.handleDeleteButton.bind(this);
         this.handleAddItemButton = this.handleAddItemButton.bind(this);
         this.handleAddItemButtonWithKeyPress = this.handleAddItemButtonWithKeyPress.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     componentDidMount() {
@@ -395,6 +396,10 @@ class EditEvent extends Component {
             })
 
     }
+    
+    handleCancel(e) {
+        this.setState({ backToViewEventPage: true });
+    }
 
     render() {
 
@@ -406,8 +411,8 @@ class EditEvent extends Component {
         return (
             <>
                 <div className="edit-event-header-container">
-                    <div className="back-button">
-                        <h2><Link to={`/events/${this.props.match.params.eventId}`}>Back</Link></h2>
+                    <div className="back-button" onClick={this.handleCancel}>
+                        <h2>Cancel</h2>
                     </div>
                     <div className="submit-button" onClick={this.handleSubmit}>
                         <h2>Submit</h2>
@@ -506,8 +511,16 @@ class EditEvent extends Component {
                                 );
                             })}
                         </section>
+                        <div className="submit-button-large" onClick={this.handleSubmit}>
+                            <h2>Submit</h2>
+                        </div>
+                        <div className="cancel-button-large" onClick={this.handleCancel}>
+                            <h2>Cancel</h2>
+                        </div>
                     </div>
                 }
+
+                
             </>
         );
     }

@@ -131,5 +131,35 @@
         flex-wrap: wrap;
         align-items: auto;
         @extend %body-font;
+        padding-bottom: 50px;
+    }
+
+    .submit-button-large,
+    .cancel-button-large {
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+        @extend %body-font;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom: 15px;
+
+        h2 {
+            margin: 0;
+            text-align: center;
+            position: absolute;
+            @include centerContent(-50%, -50%);
+        }
+    }
+
+    .submit-button-large {
+        height: 80px;
+        background-color: $blue;
+    }
+
+    .cancel-button-large {
+        height: 60px;
+        background-color: $grey;
     }
 }
