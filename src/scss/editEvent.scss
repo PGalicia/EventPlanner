@@ -39,16 +39,16 @@
 .edit-event-body-container {
     position: relative;
 
-    .input {
-        width: 100%;
-        height: 50px;
-        padding: 10px;
-        box-sizing: border-box;
-        border: none;
-        background-color: $lightGrey;
-        border-radius: 10px;
-        @extend %body-font
-    }
+    // .input {
+    //     width: 100%;
+    //     height: 50px;
+    //     padding: 10px;
+    //     box-sizing: border-box;
+    //     border: none;
+    //     background-color: $lightGrey;
+    //     border-radius: 10px;
+    //     @extend %body-font
+    // }
 
     .heading {
         margin: 0;

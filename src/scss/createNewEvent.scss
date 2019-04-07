@@ -31,3 +31,71 @@
         top: 0;
     }
 }
+
+.create-event-body-container {
+    position: relative;
+
+    .heading {
+        margin: 0;
+        @include subHeading(0);
+        padding-bottom: 10px;
+    }
+
+    .input {
+        margin-bottom: 25px;
+    }
+
+    .create-event-main-info-container,
+    .create-event-guest-container {
+        position: relative;
+        display: grid;
+        padding-bottom: 25px;
+    }
+
+    .create-event-main-info-container {
+        grid-template-columns: 350px auto;
+        grid-gap: 25px;
+        padding-bottom: 50px;
+
+        .name-container,
+        .address-container,
+        .date-container,
+        .time-container {
+            position: relative;
+        }
+
+        .name-container,
+        .address-container {
+            grid-column: span 2;
+        }
+    }
+
+    .submit-button-large,
+    .cancel-button-large {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        @extend %body-font;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom: 15px;
+
+        h2 {
+            margin: 0;
+            text-align: center;
+            position: absolute;
+            @include centerContent(-50%, -50%);
+        }
+    }
+
+    .submit-button-large {
+        height: 80px;
+        background-color: $blue;
+    }
+
+    .cancel-button-large {
+        height: 60px;
+        background-color: $grey;
+    }
+}
