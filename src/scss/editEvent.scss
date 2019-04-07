@@ -39,29 +39,44 @@
 .edit-event-body-container {
     position: relative;
 
+    .input {
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        background-color: $lightGrey;
+        border-radius: 10px;
+        @extend %body-font
+    }
+
     .heading {
         margin: 0;
         @include subHeading(0);
         padding-bottom: 10px;
     }
 
-    .edit-event-main-info-container {
+    .edit-event-main-info-container,
+    .edit-event-guest-container {
         position: relative;
         display: grid;
+        padding-bottom: 25px;
+    }
+
+    .edit-event-main-info-container {
         grid-template-columns: 350px auto;
         grid-gap: 25px;
-        padding-bottom: 25px;
 
-        .input {
-            width: 100%;
-            height: 50px;
-            padding: 10px;
-            box-sizing: border-box;
-            border: none;
-            background-color: $lightGrey;
-            border-radius: 10px;
-            @extend %body-font
-        }
+        // .input {
+        //     width: 100%;
+        //     height: 50px;
+        //     padding: 10px;
+        //     box-sizing: border-box;
+        //     border: none;
+        //     background-color: $lightGrey;
+        //     border-radius: 10px;
+        //     @extend %body-font
+        // }
 
         .name-container,
         .address-container,
@@ -74,5 +89,47 @@
         .address-container {
             grid-column: span 2;
         }
+    }
+
+    .edit-event-guest-container {
+        width: 90%;
+        margin: 0 auto;
+        grid-template-columns: repeat(3, auto);
+        grid-gap: 25px;
+        @extend %body-font;
+    }
+
+    .add-item-input-container {
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+        padding-bottom: 25px;
+
+        > * {
+            margin: 5px;
+        }
+
+        .input#add-items {
+            width: 30%;
+        }
+
+        .add-item-button {
+            height: 50px;
+            width: 100px;
+            background-color: $blue;
+            border: none;
+            border-radius: 10px;
+            @extend %body-font;
+            color: white;
+        }
+    }
+
+    .edit-event-items-container {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: auto;
+        @extend %body-font;
     }
 }

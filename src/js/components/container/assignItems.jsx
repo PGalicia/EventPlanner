@@ -149,14 +149,16 @@ class AssignItems extends Component {
 
         const selectedAssignedItems = this.props.selectedAssignedItems;
         const eventId = this.state.event.rowid;
-        
+    
+
         // If there are items chosen but no attendees, then return the items as unassigned
-        if(selectedAssignedItems.selectedItems.filter(item => item.isChosen).length > 0 ||
+        if(selectedAssignedItems.selectedItems.filter(item => item.isChosen).length > 0 &&
             selectedAssignedItems.selectedAttendee.filter(attendee => attendee.isChosen).length === 0) {
 
                 // **Temporary fix
                 this.props.rerenderPage(true);
-                this.setState({ backToViewEventPage: true })
+                this.setState({ backToViewEventPage: true });
+                console.log("in here");
                 return;
         }
 
@@ -166,6 +168,7 @@ class AssignItems extends Component {
             if(!item.isChosen) {
                 continue;
             }
+            console.log("here");
 
             fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}`, {
                 method: 'DELETE'

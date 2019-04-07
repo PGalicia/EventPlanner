@@ -17,11 +17,16 @@ class Time extends Component {
 
         this.state = {
             isHourChoicesOpen: false,
-            isMinuteChoicesOpen: false
+            isMinuteChoicesOpen: false,
+            timeOfDay: null
         }
 
         this.toggleView = this.toggleView.bind(this);
         this.toggleTimeOfDay = this.toggleTimeOfDay.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({ timeOfDay: this.props.time.split(" ").slice(5)[1] })
     }
 
     toggleView(e, targetDropdown) {
@@ -50,7 +55,6 @@ class Time extends Component {
 
         let hours =  this.props.time.split(" ").slice(5)[0].split(":")[0];
         let minutes =  this.props.time.split(" ").slice(5)[0].split(":")[1];
-        let timeOfDay = this.props.time.split(" ").slice(5)[1];
         return (
             <div className="edit-time-container">
                 <div className="hour-output">
@@ -102,7 +106,7 @@ class Time extends Component {
                 </div>
                 <div 
                     className="time-of-day-output am"
-                    style={timeOfDay === "AM" ? activeStyle : inActiveStyle}
+                    style={this.state.timeOfDay === "AM" ? activeStyle : inActiveStyle}
                     onClick={e => {
                         this.toggleTimeOfDay(e, "AM");
                         this.props.handleTimeClick(e, "AM");
@@ -112,7 +116,7 @@ class Time extends Component {
                 </div>
                 <div 
                     className="time-of-day-output pm"
-                    style={timeOfDay === "PM" ? activeStyle : inActiveStyle}
+                    style={this.state.timeOfDay === "PM" ? activeStyle : inActiveStyle}
                     onClick={e => {
                         this.toggleTimeOfDay(e, "PM")
                         this.props.handleTimeClick(e, "PM");
