@@ -6,7 +6,8 @@
 import {
     FETCH_ALL_EVENT,
     UPDATE_ASSIGN_ITEMS_CHECKLIST,
-    RERENDER_PAGE
+    RERENDER_PAGE,
+    TOGGLE_DELETE_CONFIRMATION_MODAL
 } from "./../constants/action-types.js";
 
 /*
@@ -24,6 +25,11 @@ export const updateAssignItemsChecklist = checklist => ({
 
 export const rerenderPage = bool => ({
     type: RERENDER_PAGE,
+    payload: bool
+});
+
+export const toggleDeleteConfirmationModal = bool => ({
+    type: TOGGLE_DELETE_CONFIRMATION_MODAL,
     payload: bool
 });
 

@@ -5,7 +5,8 @@
 import { 
     FETCH_ALL_EVENT, 
     UPDATE_ASSIGN_ITEMS_CHECKLIST,
-    RERENDER_PAGE
+    RERENDER_PAGE,
+    TOGGLE_DELETE_CONFIRMATION_MODAL
 } from "../constants/action-types.js"; // Components
 
 /*
@@ -20,7 +21,9 @@ const initialState = {
         selectedItems: [],
         selectedAttendee: []
     },
-    shouldReRenderPage: false
+    shouldReRenderPage: false,
+    isDeleteCofirmationModalOpen: true,
+    targetEvent: null
 };
 
 
@@ -35,6 +38,8 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, selectedAssignedItems: action.payload };
         case RERENDER_PAGE:
             return { ...state, shouldReRenderPage: action.payload };
+        case TOGGLE_DELETE_CONFIRMATION_MODAL:
+            return { ...state, isDeleteCofirmationModalOpen: action.payload.bool, targetEvent: action.payload.event };
         default:
             return state;
     }

@@ -9,6 +9,7 @@ import { convertNumToDays } from "./../../utils/convertNumToDays.js"; // Utility
 import { convertNumToMonths } from "./../../utils/convertNumToMonths.js"; // Utility Function
 import { formatEventTitle } from "./../../utils/formatEventTitle.js"; // Utility Function
 import { Link, Redirect } from "react-router-dom"; // React-Router
+import { toggleDeleteConfirmationModal } from "./../../actions/index.js"; // Action-Types
 
 /*
   mapStateToProps,
@@ -20,7 +21,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {};
+    return {
+        toggleDeleteConfirmationModal: bool => dispatch(toggleDeleteConfirmationModal(bool))
+    };
 }
 
 /*
@@ -42,11 +45,16 @@ class EventCard extends Component {
         // Bindings
         this.toggleEventCardExpansion = this.toggleEventCardExpansion.bind(this);
         this.linkToEventPage = this.linkToEventPage.bind(this);
+        this.openDeleteConfirmationModal = this.openDeleteConfirmationModal.bind(this);
     }
 
     // Toggle Event Card Expansion
     toggleEventCardExpansion() {
         this.setState({ isEventCardContainerExpanded: !this.state.isEventCardContainerExpanded });
+    }
+
+    openDeleteConfirmationModal(e) {
+        this.props.toggleDeleteConfirmationModal({bool: true, event: this.state.event});
     }
 
     linkToEventPage(e) {
@@ -113,7 +121,7 @@ class EventCard extends Component {
                         </button>
                         {
                             this.state.isEventCardContainerExpanded &&
-                            <button className="delete-button">d</button>
+                            <button className="delete-button" onClick={this.openDeleteConfirmationModal}>d</button>
                         }  
                     </div>
                 </div>

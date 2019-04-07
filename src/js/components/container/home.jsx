@@ -4,7 +4,7 @@
 import React, { Component } from "react"; // React
 import { Link } from "react-router-dom"; // React-Router
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
-import { fetchAllEvents } from "./../../actions/index.js"; // State Actions
+import { fetchAllEvents, rerenderPage } from "./../../actions/index.js"; // State Actions
 import { sortDate } from "./../../utils/sortDate.js"; // Utility Function
 import { findCurrentEvent } from "./../../utils/findCurrentEvent.js" // Utility Function
 import { findFutureAndPastEvents } from "./../../utils/findFutureAndPastEvents.js" // Utility Functions
@@ -19,13 +19,15 @@ import Header from "../presentational/header.jsx"; // Component
 */
 const mapStateToProps = state => {
   return {
-    events: state.events
+    events: state.events,
+    shouldReRenderPage: state.shouldReRenderPage
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchAllEvents: events => dispatch(fetchAllEvents(events))
+    fetchAllEvents: events => dispatch(fetchAllEvents(events)),
+    rerenderPage: bool => dispatch(rerenderPage(bool))
   };
 };
 
@@ -42,9 +44,26 @@ class Home extends Component {
       futureEvents: [],
       pastEvents: []
     }
+
+    this.fetchInformation = this.fetchInformation.bind(this);
   }
 
   componentDidMount() {
+    this.fetchInformation();
+
+  }
+
+  componentDidUpdate() {
+
+    // Rerenders the page during a link Redirect
+    if(this.props.shouldReRenderPage) {
+        
+        this.props.rerenderPage(false);
+        window.location.reload();
+    }
+  }
+
+  fetchInformation() {
     // Fetch all the events
     fetch(`${REST_API_BASE_PATH}/events/`)
     .then(res => res.json())
@@ -65,7 +84,6 @@ class Home extends Component {
       this.setState({ futureEvents: futureAndPastEvents.futureEvents });
       this.setState({ pastEvents: futureAndPastEvents.pastEvents });
     })
-
   }
 
   render() {

@@ -7,18 +7,21 @@ import "../../../scss/app.scss"; // SCSS
 import { connect } from "react-redux"; // Redux
 import Main from "./../presentational/main.jsx"; // Component
 import Footer from "./../presentational/footer.jsx"; // Component
+import DeleteConfirmModal from "./deleteConfirmModal.jsx"; // Component
 
 /*
   mapStateToProps,
   mapDispatchToProps
 */
 const mapStateToProps = state => {
-  return state;
+  return {
+    isDeleteCofirmationModalOpen: state.isDeleteCofirmationModalOpen,
+    targetEvent: state.targetEvent
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    
   };
 };
 
@@ -37,6 +40,8 @@ class App extends Component {
         <Main />
         {/* Footer Component */}
         <Footer />
+        {/* Delete Modal Component */}
+        {this.props.isDeleteCofirmationModalOpen && this.props.targetEvent && <DeleteConfirmModal />}
       </React.Fragment>
     );
   }

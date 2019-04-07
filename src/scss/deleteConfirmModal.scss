@@ -1,0 +1,67 @@
+@import 'utils';
+
+.delete-modal-container {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(220,220,220, 0.5);
+    z-index: 15;
+    left: 0;
+    top: 0;
+
+    .confirmation-container {
+        position: relative;
+        z-index: 16;
+        height: 250px;
+        width: 500px;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        @include centerContent(-50%, -50%);
+
+        .title-name {
+            width: 100%;
+            height: 27%;
+            background-color: $blue;
+            color: white;
+            box-sizing: border-box;
+            padding: 10px 25px;
+        }
+
+        .confirmation-text {
+            width: 100%;
+            padding: 10% 25px;
+            box-sizing: border-box;
+            @extend %body-font;
+        }
+
+        .button-container {
+            position: absolute;
+            background-color: skyblue;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            height: 25%;
+            width: 100%;
+            bottom: 0;
+
+            > * {
+                @extend %body-font;
+                color: white;
+                border:none;
+                cursor: pointer;
+            }
+
+            .confirmation-button {
+                background-color: $blue;
+            }
+
+            .cancel-button {
+                background-color: $grey;
+            }
+        }
+
+        > * {
+            margin: 0;
+        }
+    }
+}
