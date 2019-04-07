@@ -149,7 +149,7 @@ class ViewEvent extends Component {
                         <h2><Link to={'/'}>Back</Link></h2>
                     </div>
                     <div className="edit-button">
-                        <h2><Link to={'/edit/1'}>Edit</Link></h2>
+                        <h2><Link to={`/edit/${this.props.match.params.eventId}`}>Edit</Link></h2>
                     </div>
                     <div className="delete-button">
                         <h2><Link to={'/'}>Delete</Link></h2>

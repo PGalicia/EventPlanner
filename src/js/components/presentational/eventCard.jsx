@@ -8,7 +8,7 @@ import { connect } from "react-redux"; // Redux
 import { convertNumToDays } from "./../../utils/convertNumToDays.js"; // Utility Function
 import { convertNumToMonths } from "./../../utils/convertNumToMonths.js"; // Utility Function
 import { formatEventTitle } from "./../../utils/formatEventTitle.js"; // Utility Function
-import { Link } from "react-router-dom"; // React-Router
+import { Link, Redirect } from "react-router-dom"; // React-Router
 
 /*
   mapStateToProps,
@@ -34,20 +34,30 @@ class EventCard extends Component {
         this.state = {
             isEventCardContainerExpanded: this.props.isEventCardContainerExpanded,
             event: this.props.event,
-            eventDateTime: new Date(this.props.event.datetime)
+            eventDateTime: new Date(this.props.event.datetime),
+            toEventPage: false
         }
 
 
         // Bindings
         this.toggleEventCardExpansion = this.toggleEventCardExpansion.bind(this);
+        this.linkToEventPage = this.linkToEventPage.bind(this);
     }
 
     // Toggle Event Card Expansion
     toggleEventCardExpansion() {
         this.setState({ isEventCardContainerExpanded: !this.state.isEventCardContainerExpanded });
     }
+
+    linkToEventPage(e) {
+        this.setState({ toEventPage: true });
+    }
     
     render() {
+        if(this.state.toEventPage) {
+            return <Redirect to={`/edit/${this.state.event.rowid}`}/>
+        }
+
         return (
             <div className={this.state.isEventCardContainerExpanded ? 
                                 "event-card-container" : 
@@ -94,6 +104,7 @@ class EventCard extends Component {
                                 m
                         </button>
                         <button 
+                            onClick={this.linkToEventPage}
                             className={this.state.isEventCardContainerExpanded ? 
                                 "edit-button":
                                 "move-edit-button"}
