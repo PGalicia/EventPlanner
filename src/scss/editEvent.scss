@@ -6,8 +6,7 @@
     @extend %container-size;
 
     .submit-button,
-    .back-button,
-    .delete-button {
+    .back-button {
         @extend %header-circle;
 
         h2 {
@@ -17,15 +16,10 @@
         }
     }
 
-
-    .delete-button {
-        position: absolute;
-        right: 25px;
-    }
     
     .submit-button {
         position: absolute;
-        right: 125px;
+        right: 25px;
     }
     
     .back-button {

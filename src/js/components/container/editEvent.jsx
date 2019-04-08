@@ -417,9 +417,6 @@ class EditEvent extends Component {
                     <div className="submit-button" onClick={this.handleSubmit}>
                         <h2>Submit</h2>
                     </div>
-                    <div className="delete-button">
-                        <h2><Link to={'/'}>Delete</Link></h2>
-                    </div>
                 </div>
 
                 {this.state.event && 

@@ -151,9 +151,6 @@ class ViewEvent extends Component {
                     <div className="edit-button">
                         <h2><Link to={`/edit/${this.props.match.params.eventId}`}>Edit</Link></h2>
                     </div>
-                    <div className="delete-button">
-                        <h2><Link to={'/'}>Delete</Link></h2>
-                    </div>
                 </div>
 
                 {this.state.event &&

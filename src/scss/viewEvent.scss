@@ -6,8 +6,7 @@
     @extend %container-size;
 
     .edit-button,
-    .back-button,
-    .delete-button {
+    .back-button {
         @extend %header-circle;
 
         h2 {
@@ -16,16 +15,10 @@
             @include centerContent(-50%, -50%);
         }
     }
-
-
-    .delete-button {
-        position: absolute;
-        right: 25px;
-    }
     
     .edit-button {
         position: absolute;
-        right: 125px;
+        right: 25px;
     }
     
     .back-button {
