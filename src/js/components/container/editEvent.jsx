@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react'; // React
 import { connect } from 'react-redux'; // Redux
-import { Link, Redirect } from 'react-router-dom'; // React-Router
+import { Redirect } from 'react-router-dom'; // React-Router
 import "./../../../scss/editEvent.scss"; // SCSS
 import Calendar from "./../presentational/calendar.jsx"; // Component
 import Time from "./../presentational/time.jsx"; // Component

@@ -6,9 +6,8 @@ import React from "react"; // React
 import "./../../../scss/checkbox.scss"; // SCSS
 
 /*
-    Checkbox
+    Checkbox Component
 */
-
 const Checkbox = props => {
     return (
         <label className="checkbox-container">

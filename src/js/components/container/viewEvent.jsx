@@ -9,7 +9,6 @@ import "./../../../scss/viewEvent.scss"; // SCSS
 import {
     rerenderPage
 } from "./../../actions/index.js"; // Action Types
-import EditEvent from "./../container/editEvent.jsx"; // Component
 import NameDisplay from "./../presentational/nameDisplay.jsx" // Component
 import ItemDisplay from "./../presentational/itemDisplay.jsx"; // Component
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants

@@ -35,7 +35,6 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-
 /*
     AssignItems Component
 */

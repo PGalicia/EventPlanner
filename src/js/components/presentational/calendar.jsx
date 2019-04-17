@@ -10,7 +10,6 @@ import { MONTHS } from "./../../constants/dateFormat.js"; // Constants
 /*
     Calendar Component
 */
-
 class Calendar extends Component {
     constructor() {
         super();

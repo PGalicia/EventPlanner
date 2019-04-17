@@ -18,11 +18,9 @@ import AssignItems from "./../container/assignItems.jsx" // Component
 const Main = () => (
   <main className="main">
     <Switch>
-    {/* component={props => <HotelsPage {...props} */}
       <Route exact path="/" component={Home} />
       <Route path="/create_new_event" component={CreateNewEvent} />
       <Route path="/events/:eventId" component={ViewEvent} />
-      {/* <Route path="/events/:eventId" render={(props) => <ViewEvent {...props} />} /> */}
       <Route path="/edit/:eventId" component={EditEvent} />
       <Route path="/assign/:eventId" component={AssignItems} />
     </Switch>

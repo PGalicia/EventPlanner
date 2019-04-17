@@ -13,6 +13,7 @@ const NameDisplay = props => {
         backgroundColor: props.color,
         borderColor: props.color
     }
+    
     return (
         <h6 className="attendee">
             <span 

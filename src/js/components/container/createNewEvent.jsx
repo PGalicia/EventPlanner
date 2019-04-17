@@ -9,6 +9,7 @@ import "./../../../scss/createNewEvent.scss"; // SCSS
 import Calendar from "./../presentational/calendar.jsx"; // Component
 import Time from "./../presentational/time.jsx"; // Component
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
+import { MONTHS } from "./../../constants/dateFormat.js" // Constants
 import { getWholeDateString } from "./../../utils/getWholeDateString.js"; // Utility Function
 
 /*
@@ -18,12 +19,6 @@ import { getWholeDateString } from "./../../utils/getWholeDateString.js"; // Uti
 const mapStateToProps = state => {
     return state;
 };
-
-const mapDispatchToProps = dispatch => {
-    return {
-
-    };
-}
 
 /*
     CreateNewEvent Component
@@ -246,6 +241,5 @@ class CreateNewEvent extends Component {
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(CreateNewEvent);

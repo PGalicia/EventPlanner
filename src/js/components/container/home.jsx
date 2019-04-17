@@ -2,7 +2,6 @@
   Imports    
 */
 import React, { Component } from "react"; // React
-import { Link } from "react-router-dom"; // React-Router
 import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
 import { fetchAllEvents, rerenderPage } from "./../../actions/index.js"; // State Actions
 import { sortDate } from "./../../utils/sortDate.js"; // Utility Function
@@ -133,11 +132,6 @@ class Home extends Component {
               })}
             </>
           }
-          
-          {/* <h3><Link to={'/events/1'}>Event 1</Link></h3>
-          <h6><Link to={'/edit/1'}>Edit Event 1</Link></h6>
-          <h3><Link to={'/events/2'}>Event 2</Link></h3>
-          <h6><Link to={'/edit/2'}>Edit Event 2</Link></h6> */}
       </>
     );
   }
