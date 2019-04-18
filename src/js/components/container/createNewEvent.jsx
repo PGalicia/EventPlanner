@@ -8,9 +8,9 @@ import { Link, Redirect } from "react-router-dom"; // React-Router
 import "./../../../scss/createNewEvent.scss"; // SCSS
 import Calendar from "./../presentational/calendar.jsx"; // Component
 import Time from "./../presentational/time.jsx"; // Component
-import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
 import { MONTHS } from "./../../constants/dateFormat.js" // Constants
 import { getWholeDateString } from "./../../utils/getWholeDateString.js"; // Utility Function
+import { addNewEvent } from "./../../utils/addNewEvent.js"; // Utility Function
 
 /*
     mapStateToProps,
@@ -147,20 +147,14 @@ class CreateNewEvent extends Component {
         if(name === "" || location === "") { return; }
         datetime = datetime.replace(/[TZ]/g," ").trim().split(".")[0];
 
-        fetch(`${REST_API_BASE_PATH}/events/`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                location: location,
-                datetime: datetime
-            })
-        })
-            .then(() => {
-                this.setState({ backToHomePage: true })
-            })
+        const body = JSON.stringify({
+                        name: name,
+                        location: location,
+                        datetime: datetime
+                    });
+
+        addNewEvent(body)
+            .then(() => this.setState({ backToHomePage: true }))
     }
 
     render() {
