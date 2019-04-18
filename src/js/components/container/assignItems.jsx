@@ -46,7 +46,6 @@ class AssignItems extends Component {
         this.state = {
             event: null,
             attendees: [],
-            assignedItems: [],
             items: [],
             eventItems: [],
             backToViewEventPage: false
@@ -57,11 +56,17 @@ class AssignItems extends Component {
     }
 
     componentDidMount() {
+
+        let newEvent = null;
+        let newAttendees = null;
+        let newEventItems = null;
+
         // Fetch the events with the specified eventId
         fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
         .then(res => res.json())
         .then(event => {
-            this.setState({ event });
+
+            newEvent = event;
             
             // Find which attendees are going and assign colors
             const people = event.guests;
@@ -71,7 +76,8 @@ class AssignItems extends Component {
             for(let i = 0; i < attendees.length; i++) {
                 attendees[i]["color"] = colorArray[i].color;
             }
-            this.setState({ attendees });
+
+            newAttendees = attendees
 
             // Event Items
             let itemKeys = new Set([]);
@@ -81,9 +87,8 @@ class AssignItems extends Component {
             }
             
             itemKeys = [ ...itemKeys ];
-            let assignedItems = [];
 
-            this.setState({ eventItems: itemKeys })
+            newEventItems = itemKeys
 
             let selectedAssignedItems = {
                 selectedItems: [],
@@ -104,16 +109,19 @@ class AssignItems extends Component {
             }
 
             this.props.updateAssignItemsChecklist(selectedAssignedItems);
-            
-
-            // // Find which items are present in the event
-            // this.setState({ assignedItems });
         })
         .then(() => {
             return fetch(`${REST_API_BASE_PATH}/items/`) ;
         })
         .then(res => res.json())
-        .then(items => this.setState({ items }));
+        .then(items => {
+            this.setState({
+                event: newEvent,
+                attendees: newAttendees,
+                eventItems: newEventItems,
+                items 
+            });
+        });
     }
 
     handleChange(e) {
@@ -157,7 +165,6 @@ class AssignItems extends Component {
                 // **Temporary fix
                 this.props.rerenderPage(true);
                 this.setState({ backToViewEventPage: true });
-                console.log("in here");
                 return;
         }
 
@@ -167,7 +174,6 @@ class AssignItems extends Component {
             if(!item.isChosen) {
                 continue;
             }
-            console.log("here");
 
             fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}`, {
                 method: 'DELETE'

@@ -2,11 +2,11 @@
   Imports    
 */
 import React, { Component } from "react"; // React
-import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
-import { fetchAllEvents, rerenderPage } from "./../../actions/index.js"; // State Actions
+import { rerenderPage } from "./../../actions/index.js"; // State Actions
 import { sortDate } from "./../../utils/sortDate.js"; // Utility Function
-import { findCurrentEvent } from "./../../utils/findCurrentEvent.js" // Utility Function
-import { findFutureAndPastEvents } from "./../../utils/findFutureAndPastEvents.js" // Utility Functions
+import { findCurrentEvent } from "./../../utils/findCurrentEvent.js"; // Utility Function
+import { findFutureAndPastEvents } from "./../../utils/findFutureAndPastEvents.js"; // Utility Functions
+import { findAllEvents, fecthAllEvents } from "./../../utils/fetchAllEvents.js"; // Utility Functions
 import "./../../../scss/home.scss"; // SCSS
 import { connect } from "react-redux"; // Redux
 import EventCard from "./../presentational/eventCard.jsx"; // Component
@@ -25,7 +25,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchAllEvents: events => dispatch(fetchAllEvents(events)),
     rerenderPage: bool => dispatch(rerenderPage(bool))
   };
 };
@@ -43,12 +42,27 @@ class Home extends Component {
       futureEvents: [],
       pastEvents: []
     }
-
-    this.fetchInformation = this.fetchInformation.bind(this);
   }
 
   componentDidMount() {
-    this.fetchInformation();
+    // Fetch all the events
+    fecthAllEvents().then()
+    .then(events => {
+
+      // Sort the event based on their date
+      const sortedEvents = sortDate(events);
+
+      // Find the current event
+      const currentEvent = findCurrentEvent(sortedEvents);
+
+      // Find the current and past events
+      const futureAndPastEvents = findFutureAndPastEvents(currentEvent, sortedEvents);
+      this.setState({
+        currentEvent,
+        futureEvents: futureAndPastEvents.futureEvents,
+        pastEvents: futureAndPastEvents.pastEvents
+      });
+    })
 
   }
 
@@ -60,29 +74,6 @@ class Home extends Component {
         this.props.rerenderPage(false);
         window.location.reload();
     }
-  }
-
-  fetchInformation() {
-    // Fetch all the events
-    fetch(`${REST_API_BASE_PATH}/events/`)
-    .then(res => res.json())
-    .then(events => {
-
-      // Sort the event based on their date
-      const sortedEvents = sortDate(events);
-
-      // Set the events to the state --- possibly useless
-      this.props.fetchAllEvents(sortedEvents);
-
-      // Find the current event
-      const currentEvent = findCurrentEvent(sortedEvents);
-      this.setState({ currentEvent })
-
-      // Find the current and past events
-      const futureAndPastEvents = findFutureAndPastEvents(currentEvent, sortedEvents);
-      this.setState({ futureEvents: futureAndPastEvents.futureEvents });
-      this.setState({ pastEvents: futureAndPastEvents.pastEvents });
-    })
   }
 
   render() {

@@ -77,7 +77,6 @@ class EditEvent extends Component {
         let newAttendees = null;
         let newAssignedItem = null;
         let newItems = null;
-        let newDate = null;
 
         // Fetch the events with the specified eventId
         fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
@@ -124,7 +123,6 @@ class EditEvent extends Component {
                 newEvent = event;
                 newAttendees = attendees;
                 newAssignedItem = assignedItems;
-                newDate = event.datetime;
 
             })
             .then(() => {
@@ -144,8 +142,7 @@ class EditEvent extends Component {
                     eventLocation: newEvent.location,
                     attendees: newAttendees,
                     assignedItems: newAssignedItem,
-                    items: newItems,
-                    newDate
+                    items: newItems
                 });
             })
     }

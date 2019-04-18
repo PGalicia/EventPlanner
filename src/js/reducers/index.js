@@ -2,8 +2,7 @@
     Imports
 */
 
-import { 
-    FETCH_ALL_EVENT, 
+import {
     UPDATE_ASSIGN_ITEMS_CHECKLIST,
     RERENDER_PAGE,
     TOGGLE_DELETE_CONFIRMATION_MODAL
@@ -32,8 +31,6 @@ const initialState = {
 */
 const rootReducer = (state = initialState, action) => {
     switch(action.type) {
-        case FETCH_ALL_EVENT:
-            return { ...state, events: action.payload };
         case UPDATE_ASSIGN_ITEMS_CHECKLIST:
             return { ...state, selectedAssignedItems: action.payload };
         case RERENDER_PAGE:

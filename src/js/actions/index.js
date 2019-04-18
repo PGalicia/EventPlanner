@@ -4,7 +4,6 @@
 
 // Constants
 import {
-    FETCH_ALL_EVENT,
     UPDATE_ASSIGN_ITEMS_CHECKLIST,
     RERENDER_PAGE,
     TOGGLE_DELETE_CONFIRMATION_MODAL
@@ -13,10 +12,6 @@ import {
 /*
     Actions
 */
-export const fetchAllEvents = events => ({
-    type: FETCH_ALL_EVENT,
-    payload: events
-});
 
 export const updateAssignItemsChecklist = checklist => ({
     type: UPDATE_ASSIGN_ITEMS_CHECKLIST,
