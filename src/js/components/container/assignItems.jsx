@@ -15,6 +15,10 @@ import {
 } from "./../../actions/index.js"; // Action Types
 import Checkbox from "./../presentational/checkbox.jsx"; // Component 
 import ReviewCard from "../presentational/reviewCard.jsx"; // Component
+import { fetchAllEvents } from "./../../utils/fetchAllEvents.js"; // Utility Function
+import { fetchAllItems } from "./../../utils/fetchAllItems.js"; // Utility Function
+import { deleteEventItem } from "./../../utils/deleteEventItem.js"; // Utility Function
+import { assignItemToAttendee } from "./../../utils/assignItemToAttendee.js"; // Utility Function
 
 
 /*
@@ -62,8 +66,7 @@ class AssignItems extends Component {
         let newEventItems = null;
 
         // Fetch the events with the specified eventId
-        fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
-        .then(res => res.json())
+        fetchAllEvents(this.props.match.params.eventId)
         .then(event => {
 
             newEvent = event;
@@ -110,10 +113,7 @@ class AssignItems extends Component {
 
             this.props.updateAssignItemsChecklist(selectedAssignedItems);
         })
-        .then(() => {
-            return fetch(`${REST_API_BASE_PATH}/items/`) ;
-        })
-        .then(res => res.json())
+        .then(() => fetchAllItems())
         .then(items => {
             this.setState({
                 event: newEvent,
@@ -175,9 +175,7 @@ class AssignItems extends Component {
                 continue;
             }
 
-            fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}`, {
-                method: 'DELETE'
-            })
+            deleteEventItem(eventId, item.itemId)
                 .then(() => {
                     for(let attendee of selectedAssignedItems.selectedAttendee) {
 
@@ -186,9 +184,7 @@ class AssignItems extends Component {
                             continue;
                         }
         
-                        fetch(`${REST_API_BASE_PATH}/items/${eventId}/${item.itemId}/${attendee.rowid}`, {
-                            method: 'POST'
-                        })
+                        assignItemToAttendee(eventId, item.itemId, attendee.rowid)
         
                     }
                 })
