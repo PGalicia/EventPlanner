@@ -6,7 +6,7 @@ import React, { Component } from "react"; // React
 import "./../../../scss/deleteConfirmModal.scss" // SCSS
 import { connect } from "react-redux"; // Redux
 import { toggleDeleteConfirmationModal, rerenderPage } from "./../../actions/index.js"; // Action-Types
-import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
+import { deleteEvent } from "./../../utils/deleteEvent.js"; // Utility Function
 
 /*
     mapStateToProps,
@@ -42,9 +42,7 @@ class DeleteConfirmModal extends Component {
     }
 
     handleSubmit(e) {
-        fetch(`${REST_API_BASE_PATH }/events/${this.props.targetEvent.rowid}`, {
-            method: "DELETE"
-        })
+        deleteEvent(this.props.targetEvent.rowid)
         this.props.toggleDeleteConfirmationModal(false);
         this.props.rerenderPage(true);
     }
