@@ -10,11 +10,16 @@ import Calendar from "./../presentational/calendar.jsx"; // Component
 import Time from "./../presentational/time.jsx"; // Component
 import Checkbox from "./../presentational/checkbox.jsx"; // Component
 import EditItemDisplay from '../presentational/editItemDisplay.jsx'; // Component
-import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js" // Constants
 import { MONTHS } from "./../../constants/dateFormat.js"; // Constants
-import { formatEventTitle } from "./../../utils/formatEventTitle.js" // Utility Functions
-import { chooseColors } from "./../../utils/chooseColors.js" // Utility Functions
-import { getWholeDateString } from "../../utils/getWholeDateString.js"; // Utility Functions
+import { formatEventTitle } from "./../../utils/formatEventTitle.js" // Utility Function
+import { chooseColors } from "./../../utils/chooseColors.js" // Utility Function
+import { getWholeDateString } from "../../utils/getWholeDateString.js"; // Utility Function
+import { fetchAllEvents } from "../../utils/fetchAllEvents.js"; // Utility Function
+import { fetchAllItems } from "../../utils/fetchAllItems.js"; // Utility Function
+import { patchEvents } from "./../../utils/patchEvents.js"; // Utility Function
+import { patchEventAttendee } from "./../../utils/patchEventAttendee.js"; // Utility Function
+import { deleteEventItem } from "./../../utils/deleteEventItem.js"; // Utility Function
+import { addNewEventItem } from "./../../utils/addNewEventItem.js"; // Utility Function
 import { rerenderPage } from "./../../actions/index.js"; // Action Types
 
 /*
@@ -79,8 +84,7 @@ class EditEvent extends Component {
         let newItems = null;
 
         // Fetch the events with the specified eventId
-        fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
-        .then(res => res.json())
+        fetchAllEvents(this.props.match.params.eventId)
         .then(event => {
                 
                 // Find which attendees are going and assign colors
@@ -125,10 +129,7 @@ class EditEvent extends Component {
                 newAssignedItem = assignedItems;
 
             })
-            .then(() => {
-                return fetch(`${REST_API_BASE_PATH}/items/`) ;
-            })
-            .then(res => res.json())
+            .then(() => fetchAllItems())
             .then(items => {
                 newItems = items;
                 for(let obj of newAssignedItem) {
@@ -357,34 +358,22 @@ class EditEvent extends Component {
         // format the location string
         queries.push(`location=${this.state.event.location}`);
 
-        fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}?${queries.join("&")}`, {
-            method: "PATCH"
-        })
+        patchEvents(this.props.match.params.eventId, queries.join("&"))
             .then(() => {
                 for(let guest of this.state.event.guests) {
                     let bool = guest.event_guest.isGoing ? 1 : 0;
-                    fetch(`${REST_API_BASE_PATH}/guests/${this.props.match.params.eventId}/${guest.rowid}/${bool}`, {
-                        method: "PATCH"
-                    })
+                    patchEventAttendee(this.props.match.params.eventId, guest.rowid, bool)
                 }
             })
             .then(() => {
                 let updatedDeletedItems = this.state.deletedItems.filter(item => item.itemId !== null)
                 for(let item of updatedDeletedItems) {
-                    fetch(`${REST_API_BASE_PATH}/items/${this.props.match.params.eventId}/${item.itemId}`, {
-                        method: "DELETE"
-                    });
+                    deleteEventItem(this.props.match.params.eventId, item.itemId)
                 }
             })
             .then(() => {
                 for(let item of this.state.assignedItems) {
-                    fetch(`${REST_API_BASE_PATH}/items/${this.props.match.params.eventId}`, {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({name: item.name})
-                    })
+                    addNewEventItem(this.props.match.params.eventId, JSON.stringify({name: item.name}))
                 }
             })
             .then(() => {
