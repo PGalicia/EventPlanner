@@ -11,10 +11,11 @@ import {
 } from "./../../actions/index.js"; // Action Types
 import NameDisplay from "./../presentational/nameDisplay.jsx" // Component
 import ItemDisplay from "./../presentational/itemDisplay.jsx"; // Component
-import { REST_API_BASE_PATH } from "./../../constants/restAPIBasePath.js"; // Constants
 import { getWholeDateString } from "../../utils/getWholeDateString.js"; // Utility Functions
 import { formatEventTitle } from "./../../utils/formatEventTitle.js"; // Utility Function
 import { chooseColors } from "./../../utils/chooseColors.js"; // Utility Function
+import { fetchAllEvents } from "./../../utils/fetchAllEvents.js"; //  Uttility Function
+import { fetchAllItems } from "./../../utils/fetchAllItems.js"; //  Uttility Function
 
 /*
   mapStateToProps,
@@ -78,9 +79,8 @@ class ViewEvent extends Component {
         let newItems = null;
 
         // Fetch the events with the specified eventId
-        fetch(`${REST_API_BASE_PATH}/events/${this.props.match.params.eventId}`)
-        .then(res => res.json())
-        .then(event => {
+        fetchAllEvents(this.props.match.params.eventId)
+            .then(event => {
                 
                 // Find which attendees are going and assign colors
                 const people = event.guests;
@@ -123,10 +123,7 @@ class ViewEvent extends Component {
                 newAssignedItem = assignedItems;
 
             })
-            .then(() => {
-                return fetch(`${REST_API_BASE_PATH}/items/`) ;
-            })
-            .then(res => res.json())
+            .then(() => fetchAllItems())
             .then(items => {
                 newItems = items;
             })
