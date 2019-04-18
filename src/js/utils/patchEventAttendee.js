@@ -1,7 +1,7 @@
 /*
       patchEventAttendee
 
-      Description: edit the main information for an event (name, location, datetime)
+      Description: toggle event attendee
 
       Additional Notes:
         - Ensure that the return type is a PROMISE
