@@ -1,8 +1,13 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = {
+  // output: {
+  //   publicPath: "/"
+  // },
   output: {
-    publicPath: "/"
+    path: path.resolve("dist"),
+    filename: "bundled.js"
   },
   module: {
     rules: [
