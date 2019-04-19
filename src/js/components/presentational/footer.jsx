@@ -11,7 +11,7 @@ import "./../../../scss/footer.scss"; // SCSS
 const Footer = () => {
     return (
         <div className="footer-container">
-            <h6>&copy; 2018 Patrick Galicia • Please Hire Me</h6>
+            <h6>&copy; 2019 Patrick Galicia • Please Hire Me</h6>
         </div>
     );
 }

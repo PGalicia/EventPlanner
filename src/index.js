@@ -19,7 +19,7 @@ const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && wi
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router basename={process.env.PUBLIC_URL}>
+        <Router basename="ProjectNamorClient">
             <App />
         </Router>
     </Provider>,
