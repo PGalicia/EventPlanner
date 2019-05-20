@@ -4,6 +4,8 @@ _OnGoing_
 
 A web application that lets users create and manage events, including the attendees, and items needed for the events. This side project was made to help organize events in my friend group.
 
+[See Demo](https://eventplanner-ccb48.firebaseapp.com/)
+
 ### How It Works
 
 For the homepage, the web app displays a “create an event” button and all the events the user has created. The top event section will always showcase the latest upcoming event (if available), the middle section will always showcase the possible future events, and the last section would showcase the past events. In each event card, users can see the following information: event name, datetime, location, edit button, delete button, and “See more” button.

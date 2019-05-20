@@ -3,3 +3,8 @@
 
 # dist
 /dist
+
+# firebase
+.firebase
+.firebaserc
+firebase.json
